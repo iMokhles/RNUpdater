@@ -23,15 +23,10 @@ jobs:
           cache: "pnpm"
       - run: pnpm install
 
-      - name: Release Electron app for macOS
-        uses: daltonmenezes/action-electron-builder@v1.0.1
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Specify package manager to use pnpm
-          package_manager: "pnpm"
+      - name: Build and Release for macOS
+        run: |
+          # Build for x64 (Intel Macs)
+          pnpm electron-builder --mac --x64 --publish always
 
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: true
+          # Build for arm64 (Apple Silicon Macs)
+          pnpm electron-builder --mac --arm64 --publish always

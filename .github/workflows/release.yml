@@ -28,5 +28,7 @@ jobs:
           # Build for x64 (Intel Macs)
           pnpm electron-builder --mac --x64 --publish always
 
+      - name: Build and Release for macOS
+        run: |
           # Build for arm64 (Apple Silicon Macs)
           pnpm electron-builder --mac --arm64 --publish always

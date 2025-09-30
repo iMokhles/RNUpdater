@@ -40,14 +40,6 @@ export default {
         arch: ["x64", "arm64"],
       },
       {
-        target: "dmg",
-        arch: ["x64"],
-      },
-      {
-        target: "dmg",
-        arch: ["arm64"],
-      },
-      {
         target: "dir",
         arch: ["x64", "arm64"],
       },

@@ -1,7 +1,7 @@
 # RNUpdater
 
 <div align="center">
-  <img src="src/resources/icon.png" alt="RNUpdater" width="128" height="128">
+  <img src="icon/icon.png" alt="RNUpdater" width="128" height="128">
   
   <h3>A powerful desktop application for automated React Native project updates and version management</h3>
   

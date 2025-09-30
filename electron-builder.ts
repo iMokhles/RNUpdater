@@ -1,75 +1,52 @@
-import { defineConfig } from "electron-builder";
+/** biome-ignore-all lint/suspicious/noTemplateCurlyInString: <> */
+import type { Configuration } from "electron-builder";
 
-export default defineConfig({
-  appId: "com.imokhles.rnupdater",
-  productName: "RNUpdater",
+import {
+  main,
+  name,
+  version,
+  resources,
+  description,
+  displayName,
+  author as _author,
+} from "./package.json";
+
+import { getDevFolder } from "./src/lib/electron-app/release/utils/path";
+
+const author = _author?.name ?? _author;
+const currentYear = new Date().getFullYear();
+const authorInKebabCase = author.replace(/\s+/g, "-");
+const appId = `com.${authorInKebabCase}.${name}`.toLowerCase();
+
+const artifactName = [`${name}-v${version}`, "-${os}.${ext}"].join("");
+
+export default {
+  appId,
+  productName: displayName,
+  copyright: `Copyright © ${currentYear} — ${author}`,
+
   directories: {
-    output: "dist",
-    buildResources: "src/resources/build",
+    app: getDevFolder(main),
+    output: `dist/v${version}`,
   },
-  files: [
-    "node_modules/.dev/**/*",
-    "node_modules/.bin/**/*",
-    "node_modules/**/*",
-    "!node_modules/.dev/**/*.map",
-    "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-    "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-    "!**/node_modules/*.d.ts",
-    "!**/node_modules/.bin",
-    "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-    "!.editorconfig",
-    "!**/._*",
-    "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
-    "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-    "!**/{appveyor.yml,.travis.yml,circle.yml}",
-    "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
-  ],
+
   mac: {
-    icon: "src/resources/build/icons/icon.icns",
-    category: "public.app-category.developer-tools",
-    target: [
-      {
-        target: "dmg",
-        arch: ["x64", "arm64"],
-      },
-    ],
+    artifactName,
+    icon: `${resources}/build/icons/icon.icns`,
+    category: "public.app-category.utilities",
+    target: ["zip", "dmg", "dir"],
   },
-  win: {
-    icon: "src/resources/build/icons/icon.ico",
-    target: [
-      {
-        target: "nsis",
-        arch: ["x64", "arm64"],
-      },
-    ],
-  },
+
   linux: {
-    icon: "src/resources/build/icons/",
-    target: [
-      {
-        target: "AppImage",
-        arch: ["x64", "arm64"],
-      },
-    ],
+    artifactName,
+    category: "Utilities",
+    synopsis: description,
+    target: ["AppImage", "deb", "pacman", "freebsd", "rpm"],
   },
-  nsis: {
-    oneClick: false,
-    perMachine: false,
-    allowToChangeInstallationDirectory: true,
-    deleteAppDataOnUninstall: false,
+
+  win: {
+    artifactName,
+    icon: `${resources}/build/icons/icon.ico`,
+    target: ["zip", "portable"],
   },
-  dmg: {
-    contents: [
-      {
-        x: 130,
-        y: 220,
-      },
-      {
-        x: 410,
-        y: 220,
-        type: "link",
-        path: "/Applications",
-      },
-    ],
-  },
-});
+} satisfies Configuration;

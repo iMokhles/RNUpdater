@@ -14,7 +14,9 @@ import { VersionActions } from "./version-actions";
 import { VersionEmpty } from "./version-empty";
 import { VersionError } from "./version-error";
 import { DiffViewer } from "../diff-viewer";
+import { PackageUpdateSelector } from "../package-updater/package-update-selector";
 import { useVersionSelectorViewModel } from "./version-selector.viewmodel";
+import { useAppStore } from "../../lib/stores/app-store";
 import type { RNRelease } from "shared/types";
 
 interface VersionSelectorProps {
@@ -33,6 +35,8 @@ export function VersionSelector({
   onUpgrade,
 }: VersionSelectorProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("pagination");
+  const [showPackageUpdater, setShowPackageUpdater] = useState(false);
+  const { currentProject } = useAppStore();
   const viewModel = useVersionSelectorViewModel(
     currentVersion,
     onVersionSelect
@@ -42,6 +46,44 @@ export function VersionSelector({
     if (viewModel.selectedVersion) {
       onUpgrade?.(viewModel.selectedVersion);
     }
+  };
+
+  const handlePackageUpdate = () => {
+    // Check if diff content is available
+    if (!viewModel.selectedDiff) {
+      // You could show a toast or alert here
+      console.warn("No diff content available. Please view changes first.");
+      return;
+    }
+    setShowPackageUpdater(true);
+  };
+
+  const handleApplyPackageUpdates = async (updates: any[]) => {
+    try {
+      if (!currentProject?.path || !viewModel.selectedVersion) return;
+
+      const result = await window.App.applyPackageUpdates(
+        currentProject.path,
+        updates
+      );
+      if (result.success) {
+        // Show success message or refresh project info
+        console.log(
+          "Package updates applied successfully:",
+          result.updatedPackages
+        );
+        setShowPackageUpdater(false);
+        // You might want to refresh the project analysis here
+      } else {
+        console.error("Failed to apply package updates:", result.error);
+      }
+    } catch (error) {
+      console.error("Error applying package updates:", error);
+    }
+  };
+
+  const handleCancelPackageUpdate = () => {
+    setShowPackageUpdater(false);
   };
 
   // Show empty state if no releases
@@ -120,8 +162,10 @@ export function VersionSelector({
             selectedVersion={viewModel.selectedVersion}
             currentVersion={currentVersion}
             isDiffLoading={viewModel.isDiffLoading}
+            hasDiffContent={!!viewModel.selectedDiff}
             onShowDiff={viewModel.showVersionDiff}
             onUpgrade={handleUpgrade}
+            onPackageUpdate={handlePackageUpdate}
           />
         )}
 
@@ -132,6 +176,23 @@ export function VersionSelector({
               diff={viewModel.selectedDiff}
               isLoading={viewModel.isDiffLoading}
             />
+          </div>
+        )}
+
+        {/* Package Update Selector Modal */}
+        {showPackageUpdater && currentProject && viewModel.selectedVersion && (
+          <div className="fixed inset-0 bg-background backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto">
+              <div className="bg-background rounded-lg shadow-2xl border">
+                <PackageUpdateSelector
+                  projectPath={currentProject.path}
+                  targetRNVersion={viewModel.selectedVersion}
+                  diffContent={viewModel.selectedDiff}
+                  onApplyUpdates={handleApplyPackageUpdates}
+                  onCancel={handleCancelPackageUpdate}
+                />
+              </div>
+            </div>
           </div>
         )}
       </CardContent>

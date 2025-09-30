@@ -20,5 +20,28 @@ contextBridge.exposeInMainWorld("App", {
     ipcRenderer.invoke(IPC_CHANNELS.GET_GIT_STATUS, projectPath),
   getRecentCommits: (projectPath: string, count?: number) =>
     ipcRenderer.invoke(IPC_CHANNELS.GET_RECENT_COMMITS, projectPath, count),
+  // File operations
+  readFile: (filePath: string) =>
+    ipcRenderer.invoke(IPC_CHANNELS.READ_FILE, filePath),
+  writeFile: (filePath: string, content: string) =>
+    ipcRenderer.invoke(IPC_CHANNELS.WRITE_FILE, filePath, content),
+  // Package update operations
+  analyzePackageUpdates: (
+    projectPath: string,
+    targetRNVersion: string,
+    diffContent?: string | any
+  ) =>
+    ipcRenderer.invoke(
+      IPC_CHANNELS.ANALYZE_PACKAGE_UPDATES,
+      projectPath,
+      targetRNVersion,
+      diffContent
+    ),
+  applyPackageUpdates: (projectPath: string, updates: any[]) =>
+    ipcRenderer.invoke(
+      IPC_CHANNELS.APPLY_PACKAGE_UPDATES,
+      projectPath,
+      updates
+    ),
   // Add more app-specific APIs here as needed
 });

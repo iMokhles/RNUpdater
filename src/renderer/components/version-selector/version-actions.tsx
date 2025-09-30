@@ -5,16 +5,20 @@ interface VersionActionsProps {
   selectedVersion: string;
   currentVersion: string;
   isDiffLoading: boolean;
+  hasDiffContent: boolean;
   onShowDiff: () => void;
   onUpgrade: () => void;
+  onPackageUpdate: () => void;
 }
 
 export function VersionActions({
   selectedVersion,
   currentVersion,
   isDiffLoading,
+  hasDiffContent,
   onShowDiff,
   onUpgrade,
+  onPackageUpdate,
 }: VersionActionsProps) {
   return (
     <div className="mt-4 p-4 theme-bg-muted rounded-lg border theme-border">
@@ -41,6 +45,16 @@ export function VersionActions({
               <FileDiff className="h-4 w-4" />
             )}
             {isDiffLoading ? "Loading..." : "View Changes"}
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onPackageUpdate}
+            disabled={!hasDiffContent}
+            className="flex items-center gap-2"
+          >
+            <FileDiff className="h-4 w-4" />
+            Update Packages
           </Button>
           <Button
             size="sm"

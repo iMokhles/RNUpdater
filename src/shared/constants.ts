@@ -10,6 +10,10 @@ export const IPC_CHANNELS = {
   GET_GIT_INFO: "get-git-info",
   GET_GIT_STATUS: "get-git-status",
   GET_RECENT_COMMITS: "get-recent-commits",
+  READ_FILE: "read-file",
+  WRITE_FILE: "write-file",
+  ANALYZE_PACKAGE_UPDATES: "analyze-package-updates",
+  APPLY_PACKAGE_UPDATES: "apply-package-updates",
   // Add more IPC channels as needed
 } as const;
 

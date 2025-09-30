@@ -4,6 +4,8 @@ import { join } from "path";
 import { IPC_CHANNELS } from "shared/constants";
 import packageJSON from "../../../package.json";
 import { GitService } from "../../renderer/lib/services/git-service";
+import { PackageUpdaterService } from "../../renderer/lib/services/package-updater-service";
+import { readFile, writeFile } from "fs/promises";
 
 export function registerAppHandlers() {
   // Get app version
@@ -100,6 +102,69 @@ export function registerAppHandlers() {
       } catch (error) {
         console.error("Error getting recent commits:", error);
         throw new Error("Failed to get recent commits");
+      }
+    }
+  );
+
+  // Read file content
+  ipcMain.handle(IPC_CHANNELS.READ_FILE, async (_, filePath: string) => {
+    try {
+      const content = await readFile(filePath, "utf-8");
+      return content;
+    } catch (error) {
+      console.error("Error reading file:", error);
+      throw new Error("Failed to read file");
+    }
+  });
+
+  // Write file content
+  ipcMain.handle(
+    IPC_CHANNELS.WRITE_FILE,
+    async (_, filePath: string, content: string) => {
+      try {
+        await writeFile(filePath, content, "utf-8");
+        return true;
+      } catch (error) {
+        console.error("Error writing file:", error);
+        throw new Error("Failed to write file");
+      }
+    }
+  );
+
+  // Analyze package updates
+  ipcMain.handle(
+    IPC_CHANNELS.ANALYZE_PACKAGE_UPDATES,
+    async (
+      _,
+      projectPath: string,
+      targetRNVersion: string,
+      diffContent?: string | any
+    ) => {
+      try {
+        return await PackageUpdaterService.analyzePackageUpdates(
+          projectPath,
+          targetRNVersion,
+          diffContent
+        );
+      } catch (error) {
+        console.error("Error analyzing package updates:", error);
+        throw new Error("Failed to analyze package updates");
+      }
+    }
+  );
+
+  // Apply package updates
+  ipcMain.handle(
+    IPC_CHANNELS.APPLY_PACKAGE_UPDATES,
+    async (_, projectPath: string, updates: any[]) => {
+      try {
+        return await PackageUpdaterService.applyPackageUpdates(
+          projectPath,
+          updates
+        );
+      } catch (error) {
+        console.error("Error applying package updates:", error);
+        throw new Error("Failed to apply package updates");
       }
     }
   );

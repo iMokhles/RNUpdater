@@ -34,7 +34,20 @@ export default {
     artifactName,
     icon: `${resources}/build/icons/icon.icns`,
     category: "public.app-category.utilities",
-    target: ["zip", "dmg", "dir"],
+    target: [
+      {
+        target: "zip",
+        arch: ["x64", "arm64"],
+      },
+      {
+        target: "dmg",
+        arch: ["x64", "arm64"],
+      },
+      {
+        target: "dir",
+        arch: ["x64", "arm64"],
+      },
+    ],
   },
 
   linux: {

@@ -13,5 +13,12 @@ contextBridge.exposeInMainWorld("App", {
   readPackageJson: (projectPath: string) =>
     ipcRenderer.invoke(IPC_CHANNELS.READ_PACKAGE_JSON, projectPath),
   fetchRNReleases: () => ipcRenderer.invoke(IPC_CHANNELS.FETCH_RN_RELEASES),
+  // Git-related APIs
+  getGitInfo: (projectPath: string) =>
+    ipcRenderer.invoke(IPC_CHANNELS.GET_GIT_INFO, projectPath),
+  getGitStatus: (projectPath: string) =>
+    ipcRenderer.invoke(IPC_CHANNELS.GET_GIT_STATUS, projectPath),
+  getRecentCommits: (projectPath: string, count?: number) =>
+    ipcRenderer.invoke(IPC_CHANNELS.GET_RECENT_COMMITS, projectPath, count),
   // Add more app-specific APIs here as needed
 });

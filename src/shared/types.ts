@@ -21,6 +21,13 @@ export interface UpdateInfo {
   isAvailable: boolean;
 }
 
+// Git information types
+export interface GitInfo {
+  branch: string;
+  remoteUrl: string;
+  isGitRepository: boolean;
+}
+
 // React Native specific types
 export interface RNProject extends Project {
   reactNativeVersion: string;
@@ -28,6 +35,7 @@ export interface RNProject extends Project {
   platform: "ios" | "android" | "both";
   bundleId?: string;
   packageJson: PackageJsonInfo;
+  gitInfo?: GitInfo;
 }
 
 export interface PackageJsonInfo {

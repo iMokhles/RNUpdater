@@ -6,7 +6,14 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Package, Smartphone, Calendar, Folder } from "lucide-react";
+import {
+  Package,
+  Smartphone,
+  Calendar,
+  Folder,
+  GitBranch,
+  Globe,
+} from "lucide-react";
 import { useAppStore } from "../lib/stores/app-store";
 import { formatDate } from "shared/utils";
 
@@ -129,6 +136,65 @@ export function ProjectInfo() {
               {currentProject.path}
             </p>
           </div>
+
+          {/* Git Information */}
+          {currentProject.gitInfo && (
+            <div className="git-section">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <GitBranch
+                    className={`h-4 w-4 ${
+                      currentProject.gitInfo.isGitRepository
+                        ? "git-icon"
+                        : "git-icon not-git-repo"
+                    }`}
+                  />
+                  <span className="text-sm font-medium text-foreground">
+                    Git Branch
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge
+                    variant={
+                      currentProject.gitInfo.isGitRepository
+                        ? "default"
+                        : "secondary"
+                    }
+                    className={`git-branch-badge ${
+                      currentProject.gitInfo.isGitRepository
+                        ? "is-git-repo"
+                        : "not-git-repo"
+                    }`}
+                  >
+                    {currentProject.gitInfo.branch}
+                  </Badge>
+                  {!currentProject.gitInfo.isGitRepository && (
+                    <span className="text-xs text-muted-foreground">
+                      (Not a git repository)
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Globe
+                    className={`h-4 w-4 ${
+                      currentProject.gitInfo.isGitRepository
+                        ? "git-icon"
+                        : "git-icon not-git-repo"
+                    }`}
+                  />
+                  <span className="text-sm font-medium text-foreground">
+                    Remote URL
+                  </span>
+                </div>
+                <p className="git-remote-url">
+                  {currentProject.gitInfo.remoteUrl}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

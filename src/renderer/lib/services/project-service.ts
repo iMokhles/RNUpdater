@@ -1,4 +1,4 @@
-import type { RNProject, PackageJsonInfo } from "shared/types";
+import type { RNProject, PackageJsonInfo, GitInfo } from "shared/types";
 
 export class ProjectService {
   static async selectProjectFolder(): Promise<string | null> {
@@ -47,6 +47,15 @@ export class ProjectService {
       if (hasIOS && !hasAndroid) platform = "ios";
       if (hasAndroid && !hasIOS) platform = "android";
 
+      // Get git information
+      let gitInfo: GitInfo | undefined;
+      try {
+        gitInfo = await window.App.getGitInfo(projectPath);
+      } catch (error) {
+        console.warn("Failed to get git information:", error);
+        // Continue without git info
+      }
+
       const project: RNProject = {
         id: `${packageJson.name}-${Date.now()}`,
         name: packageJson.name,
@@ -56,6 +65,7 @@ export class ProjectService {
         reactVersion,
         platform,
         packageJson,
+        gitInfo,
       };
 
       return project;
@@ -72,4 +82,3 @@ export class ProjectService {
     );
   }
 }
-

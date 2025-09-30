@@ -160,8 +160,8 @@ html.dark app {
   code,
   pre,
   .font-mono {
-    background-color: hsl(var(--muted));
-    border: 1px solid hsl(var(--border));
+    /* background-color: hsl(var(--muted)); */
+    /* border: 1px solid hsl(var(--border)); */
   }
 
   /* Better table styling */

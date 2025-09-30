@@ -325,6 +325,97 @@
 }
 
 /* ========================================
+   PAGINATION ENHANCEMENTS
+   ======================================== */
+
+/* Pagination controls styling */
+.pagination-controls {
+  border-top: 1px solid hsl(var(--border));
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.pagination-controls select {
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.pagination-controls select:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+}
+
+/* Version list container improvements */
+.version-list-container,
+.version-list-load-more-container {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+}
+
+.version-list-container::-webkit-scrollbar,
+.version-list-load-more-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.version-list-container::-webkit-scrollbar-track,
+.version-list-load-more-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.version-list-container::-webkit-scrollbar-thumb,
+.version-list-load-more-container::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+.version-list-container::-webkit-scrollbar-thumb:hover,
+.version-list-load-more-container::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* View mode toggle styling */
+.view-mode-toggle {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.view-mode-toggle button {
+  border-radius: 0;
+  border-right: 1px solid hsl(var(--border));
+}
+
+.view-mode-toggle button:last-child {
+  border-right: none;
+}
+
+.view-mode-toggle button:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* Load more button enhancements */
+.load-more-button {
+  transition: all 0.2s ease;
+}
+
+.load-more-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.load-more-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========================================
    LIGHT THEME OVERRIDES FOR DARK: CLASSES
    ======================================== */
 

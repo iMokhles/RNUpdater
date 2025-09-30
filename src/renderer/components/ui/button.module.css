@@ -177,6 +177,106 @@
   width: 3rem;
 }
 
+/* Responsive button design */
+@media (max-width: 640px) {
+  .button {
+    font-size: var(--font-size-xs);
+    min-height: 2rem;
+  }
+
+  .buttonSm {
+    height: 1.75rem;
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .buttonMd {
+    height: 2rem;
+    padding: 0 var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .buttonLg {
+    height: 2.25rem;
+    padding: 0 var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+
+  .buttonXl {
+    height: 2.5rem;
+    padding: 0 var(--space-5);
+    font-size: var(--font-size-sm);
+  }
+
+  .buttonIconOnly {
+    width: 2rem;
+  }
+
+  .buttonIconOnly.buttonSm {
+    width: 1.75rem;
+  }
+
+  .buttonIconOnly.buttonLg {
+    width: 2.25rem;
+  }
+
+  .buttonIconOnly.buttonXl {
+    width: 2.5rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .button {
+    font-size: var(--font-size-sm);
+  }
+
+  .buttonSm {
+    height: 1.875rem;
+    padding: 0 var(--space-2-5);
+  }
+
+  .buttonMd {
+    height: 2.25rem;
+    padding: 0 var(--space-3-5);
+  }
+
+  .buttonLg {
+    height: 2.5rem;
+    padding: 0 var(--space-5);
+  }
+
+  .buttonXl {
+    height: 2.75rem;
+    padding: 0 var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .button {
+    font-size: var(--font-size-sm);
+  }
+
+  .buttonSm {
+    height: 2rem;
+    padding: 0 var(--space-3);
+  }
+
+  .buttonMd {
+    height: 2.5rem;
+    padding: 0 var(--space-4);
+  }
+
+  .buttonLg {
+    height: 2.75rem;
+    padding: 0 var(--space-6);
+  }
+
+  .buttonXl {
+    height: 3rem;
+    padding: 0 var(--space-8);
+  }
+}
+
 /* Loading state */
 .buttonLoading {
   position: relative;

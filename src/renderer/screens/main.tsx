@@ -7,9 +7,9 @@ import { ProjectSelector } from "../components/project-selector";
 import { ProjectInfo } from "../components/project-info";
 import { VersionSelector } from "../components/version-selector";
 import { ThemeSwitcher } from "../components/theme-switcher";
-import { ThemeCustomizer } from "../components/theme-customizer";
 import { DownloadProgressComponent } from "../components/download-progress";
 import styles from "./main.module.css";
+import responsiveStyles from "../styles/responsive.module.css";
 
 export function MainScreen() {
   const {
@@ -34,6 +34,12 @@ export function MainScreen() {
     "Document root data-theme:",
     document.documentElement.getAttribute("data-theme")
   );
+
+  const handleUpgrade = (version: string) => {
+    console.log("Upgrading to version:", version);
+    // TODO: Implement upgrade logic
+    alert(`Upgrade to version ${version} - Feature coming soon!`);
+  };
 
   useEffect(() => {
     const loadAppInfo = async () => {
@@ -91,8 +97,12 @@ export function MainScreen() {
       <div className={styles.contentContainer}>
         <div className={styles.container}>
           <div className={styles.maxWidth4xl}>
-            <div className={styles.header}>
-              <div className={styles.headerLeft}>
+            <div
+              className={`${styles.header} ${responsiveStyles.flex} ${responsiveStyles.justifyBetween} ${responsiveStyles.itemsStart}`}
+            >
+              <div
+                className={`${styles.headerLeft} ${responsiveStyles.flex} ${responsiveStyles.flexCol}`}
+              >
                 <h1 className={styles.title}>RNUpdater</h1>
                 <p className={styles.subtitle}>
                   A powerful tool for updating React Native applications
@@ -101,9 +111,10 @@ export function MainScreen() {
                   Theme: {theme} | Effective: {getEffectiveTheme()}
                 </div>
               </div>
-              <div className={styles.headerRight}>
+              <div
+                className={`${styles.headerRight} ${responsiveStyles.flex} ${responsiveStyles.itemsCenter} ${responsiveStyles.gap3}`}
+              >
                 <ThemeSwitcher />
-                <ThemeCustomizer />
               </div>
             </div>
 
@@ -116,7 +127,9 @@ export function MainScreen() {
             )}
 
             {!currentProject ? (
-              <div className={styles.projectSelection}>
+              <div
+                className={`${styles.projectSelection} ${responsiveStyles.textCenter}`}
+              >
                 <h2 className={styles.projectSelectionTitle}>
                   Select a Project
                 </h2>
@@ -124,17 +137,24 @@ export function MainScreen() {
                   Choose a React Native project to analyze and upgrade to the
                   latest version.
                 </p>
-                <div className={styles.projectGrid}>
+                <div
+                  className={`${styles.projectGrid} ${responsiveStyles.grid} ${responsiveStyles.gridCols1} ${responsiveStyles.lgGridCols2}`}
+                >
                   <ProjectSelector />
                 </div>
               </div>
             ) : (
-              <div className={styles.projectContent}>
-                <div className={styles.projectGrid}>
+              <div
+                className={`${styles.projectContent} ${responsiveStyles.flex} ${responsiveStyles.flexCol}`}
+              >
+                <div
+                  className={`${styles.projectGrid} ${responsiveStyles.grid} ${responsiveStyles.gridCols1} ${responsiveStyles.lgGridCols2}`}
+                >
                   <ProjectInfo />
                   <VersionSelector
                     releases={projectAnalysis?.availableReleases || []}
                     currentVersion={currentProject.reactNativeVersion}
+                    onUpgrade={handleUpgrade}
                   />
                 </div>
                 <DownloadProgressComponent />

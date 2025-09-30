@@ -2,7 +2,6 @@
 
 /* Import design tokens and color palettes */
 @import "./design-tokens.css";
-@import "./color-palettes.css";
 
 /* ========================================
    THEME-SPECIFIC VARIABLES

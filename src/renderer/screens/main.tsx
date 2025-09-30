@@ -1,15 +1,13 @@
 import { useEffect } from "react";
 import { useAppStore } from "../lib/stores/app-store";
 import { useThemeStore } from "../lib/stores/theme-store";
-import { Button } from "../components/ui/button-css-modules";
-import { Card } from "../components/ui/card-css-modules";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
 import { ProjectSelector } from "../components/project-selector";
 import { ProjectInfo } from "../components/project-info";
 import { VersionSelector } from "../components/version-selector";
 import { ThemeSwitcher } from "../components/theme-switcher";
 import { DownloadProgressComponent } from "../components/download-progress";
-import styles from "./main.module.css";
-import responsiveStyles from "../styles/responsive.module.css";
 
 export function MainScreen() {
   const {
@@ -77,9 +75,9 @@ export function MainScreen() {
 
   if (isLoading) {
     return (
-      <div className={styles.mainContainer}>
-        <div className={styles.contentContainer}>
-          <div className={styles.container}>
+      <div className="min-h-screen bg-background text-foreground flex flex-col">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="w-full max-w-7xl mx-auto p-4">
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <div className="loading-spinner animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -93,63 +91,51 @@ export function MainScreen() {
   }
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.contentContainer}>
-        <div className={styles.container}>
-          <div className={styles.maxWidth4xl}>
-            <div
-              className={`${styles.header} ${responsiveStyles.flex} ${responsiveStyles.justifyBetween} ${responsiveStyles.itemsStart}`}
-            >
-              <div
-                className={`${styles.headerLeft} ${responsiveStyles.flex} ${responsiveStyles.flexCol}`}
-              >
-                <h1 className={styles.title}>RNUpdater</h1>
-                <p className={styles.subtitle}>
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+          <div className="w-full max-w-6xl mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8 pb-6 border-b border-border flex-wrap">
+              <div className="flex flex-col gap-2 flex-1 min-w-0">
+                <h1 className="text-3xl sm:text-4xl font-bold leading-tight text-foreground">
+                  RNUpdater
+                </h1>
+                <p className="text-lg text-muted-foreground">
                   A powerful tool for updating React Native applications
                 </p>
                 <div className="mt-2 text-xs text-muted-foreground">
                   Theme: {theme} | Effective: {getEffectiveTheme()}
                 </div>
               </div>
-              <div
-                className={`${styles.headerRight} ${responsiveStyles.flex} ${responsiveStyles.itemsCenter} ${responsiveStyles.gap3}`}
-              >
+              <div className="flex items-center gap-3 flex-shrink-0">
                 <ThemeSwitcher />
               </div>
             </div>
 
             {error && (
-              <div className={styles.errorContainer}>
-                <Card variant="error" padding="md">
+              <div className="mb-6">
+                <Card className="border-destructive bg-destructive/10 p-6">
                   <p className="text-destructive">{error}</p>
                 </Card>
               </div>
             )}
 
             {!currentProject ? (
-              <div
-                className={`${styles.projectSelection} ${responsiveStyles.textCenter}`}
-              >
-                <h2 className={styles.projectSelectionTitle}>
+              <div className="text-center py-12 px-6">
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">
                   Select a Project
                 </h2>
-                <p className={styles.projectSelectionDescription}>
+                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Choose a React Native project to analyze and upgrade to the
                   latest version.
                 </p>
-                <div
-                  className={`${styles.projectGrid} ${responsiveStyles.grid} ${responsiveStyles.gridCols1} ${responsiveStyles.lgGridCols2}`}
-                >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
                   <ProjectSelector />
                 </div>
               </div>
             ) : (
-              <div
-                className={`${styles.projectContent} ${responsiveStyles.flex} ${responsiveStyles.flexCol}`}
-              >
-                <div
-                  className={`${styles.projectGrid} ${responsiveStyles.grid} ${responsiveStyles.gridCols1} ${responsiveStyles.lgGridCols2}`}
-                >
+              <div className="flex flex-col gap-6 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
                   <ProjectInfo />
                   <VersionSelector
                     releases={projectAnalysis?.availableReleases || []}

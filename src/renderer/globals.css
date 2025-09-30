@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "./styles/variables.css";
-@import "./styles/dark-theme.css";
 @import "./styles/theme-overrides.css";
 
 :root {

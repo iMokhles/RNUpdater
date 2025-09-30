@@ -1,0 +1,275 @@
+/* CSS Variables for RNUpdater Theme System */
+
+/* Import design tokens and color palettes */
+@import "./design-tokens.css";
+@import "./color-palettes.css";
+
+/* ========================================
+   THEME-SPECIFIC VARIABLES
+   ======================================== */
+
+/* Light Theme */
+:root {
+  /* Core Colors */
+  --background: 255 255 255; /* #ffffff */
+  --foreground: 15 23 42; /* #0f172a */
+  --card: 255 255 255; /* #ffffff */
+  --card-foreground: 15 23 42; /* #0f172a */
+  --popover: 255 255 255; /* #ffffff */
+  --popover-foreground: 15 23 42; /* #0f172a */
+
+  /* Primary Colors */
+  --primary: 59 130 246; /* #3b82f6 */
+  --primary-foreground: 255 255 255; /* #ffffff */
+  --primary-hover: 37 99 235; /* #2563eb */
+  --primary-active: 29 78 216; /* #1d4ed8 */
+
+  /* Secondary Colors */
+  --secondary: 241 245 249; /* #f1f5f9 */
+  --secondary-foreground: 15 23 42; /* #0f172a */
+  --secondary-hover: 226 232 240; /* #e2e8f0 */
+  --secondary-active: 203 213 225; /* #cbd5e1 */
+
+  /* Muted Colors */
+  --muted: 248 250 252; /* #f8fafc */
+  --muted-foreground: 100 116 139; /* #64748b */
+  --muted-hover: 241 245 249; /* #f1f5f9 */
+
+  /* Accent Colors */
+  --accent: 241 245 249; /* #f1f5f9 */
+  --accent-foreground: 15 23 42; /* #0f172a */
+  --accent-hover: 226 232 240; /* #e2e8f0 */
+  --accent-active: 203 213 225; /* #cbd5e1 */
+
+  /* Status Colors */
+  --success: 34 197 94; /* #22c55e */
+  --success-foreground: 255 255 255; /* #ffffff */
+  --success-hover: 22 163 74; /* #16a34a */
+  --success-bg: 240 253 244; /* #f0fdf4 */
+  --success-border: 187 247 208; /* #bbf7d0 */
+
+  --warning: 245 158 11; /* #f59e0b */
+  --warning-foreground: 255 255 255; /* #ffffff */
+  --warning-hover: 217 119 6; /* #d97706 */
+  --warning-bg: 255 251 235; /* #fffbeb */
+  --warning-border: 253 230 138; /* #fde68a */
+
+  --error: 239 68 68; /* #ef4444 */
+  --error-foreground: 255 255 255; /* #ffffff */
+  --error-hover: 220 38 38; /* #dc2626 */
+  --error-bg: 254 242 242; /* #fef2f2 */
+  --error-border: 254 202 202; /* #fecaca */
+
+  --info: 6 182 212; /* #06b6d4 */
+  --info-foreground: 255 255 255; /* #ffffff */
+  --info-hover: 8 145 178; /* #0891b2 */
+  --info-bg: 236 254 255; /* #ecfeff */
+  --info-border: 165 243 252; /* #a5f3fc */
+
+  /* Border Colors */
+  --border: 226 232 240; /* #e2e8f0 */
+  --border-hover: 203 213 225; /* #cbd5e1 */
+  --border-focus: 59 130 246; /* #3b82f6 */
+
+  /* Input Colors */
+  --input: 226 232 240; /* #e2e8f0 */
+  --input-hover: 203 213 225; /* #cbd5e1 */
+  --input-focus: 59 130 246; /* #3b82f6 */
+  --input-disabled: 248 250 252; /* #f8fafc */
+
+  /* Ring Colors */
+  --ring: 59 130 246; /* #3b82f6 */
+  --ring-hover: 37 99 235; /* #2563eb */
+  --ring-focus: 59 130 246; /* #3b82f6 */
+
+  /* Shadow Colors */
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Text Colors */
+  --text-primary: 15 23 42; /* #0f172a */
+  --text-secondary: 71 85 105; /* #475569 */
+  --text-tertiary: 100 116 139; /* #64748b */
+  --text-disabled: 148 163 184; /* #94a3b8 */
+  --text-inverse: 255 255 255; /* #ffffff */
+
+  /* Background Colors */
+  --bg-primary: 255 255 255; /* #ffffff */
+  --bg-secondary: 248 250 252; /* #f8fafc */
+  --bg-tertiary: 241 245 249; /* #f1f5f9 */
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-backdrop: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+.dark {
+  /* Core Colors */
+  --background: 15 23 42; /* #0f172a */
+  --foreground: 248 250 252; /* #f8fafc */
+  --card: 30 41 59; /* #1e293b */
+  --card-foreground: 248 250 252; /* #f8fafc */
+  --popover: 30 41 59; /* #1e293b */
+  --popover-foreground: 248 250 252; /* #f8fafc */
+
+  /* Primary Colors */
+  --primary: 96 165 250; /* #60a5fa */
+  --primary-foreground: 15 23 42; /* #0f172a */
+  --primary-hover: 147 197 253; /* #93c5fd */
+  --primary-active: 191 219 254; /* #bfdbfe */
+
+  /* Secondary Colors */
+  --secondary: 51 65 85; /* #334155 */
+  --secondary-foreground: 248 250 252; /* #f8fafc */
+  --secondary-hover: 71 85 105; /* #475569 */
+  --secondary-active: 100 116 139; /* #64748b */
+
+  /* Muted Colors */
+  --muted: 30 41 59; /* #1e293b */
+  --muted-foreground: 148 163 184; /* #94a3b8 */
+  --muted-hover: 51 65 85; /* #334155 */
+
+  /* Accent Colors */
+  --accent: 51 65 85; /* #334155 */
+  --accent-foreground: 248 250 252; /* #f8fafc */
+  --accent-hover: 71 85 105; /* #475569 */
+  --accent-active: 100 116 139; /* #64748b */
+
+  /* Status Colors */
+  --success: 74 222 128; /* #4ade80 */
+  --success-foreground: 15 23 42; /* #0f172a */
+  --success-hover: 134 239 172; /* #86efac */
+  --success-bg: 20 83 45; /* #14532d */
+  --success-border: 22 101 52; /* #166534 */
+
+  --warning: 251 191 36; /* #fbbf24 */
+  --warning-foreground: 15 23 42; /* #0f172a */
+  --warning-hover: 252 211 77; /* #fcd34d */
+  --warning-bg: 120 53 15; /* #78350f */
+  --warning-border: 146 64 14; /* #92400e */
+
+  --error: 248 113 113; /* #f87171 */
+  --error-foreground: 15 23 42; /* #0f172a */
+  --error-hover: 252 165 165; /* #fca5a5 */
+  --error-bg: 127 29 29; /* #7f1d1d */
+  --error-border: 153 27 27; /* #991b1b */
+
+  --info: 34 211 238; /* #22d3ee */
+  --info-foreground: 15 23 42; /* #0f172a */
+  --info-hover: 103 232 249; /* #67e8f9 */
+  --info-bg: 22 78 99; /* #164e63 */
+  --info-border: 21 94 117; /* #155e75 */
+
+  /* Border Colors */
+  --border: 71 85 105; /* #475569 */
+  --border-hover: 100 116 139; /* #64748b */
+  --border-focus: 96 165 250; /* #60a5fa */
+
+  /* Input Colors */
+  --input: 71 85 105; /* #475569 */
+  --input-hover: 100 116 139; /* #64748b */
+  --input-focus: 96 165 250; /* #60a5fa */
+  --input-disabled: 30 41 59; /* #1e293b */
+
+  /* Ring Colors */
+  --ring: 96 165 250; /* #60a5fa */
+  --ring-hover: 147 197 253; /* #93c5fd */
+  --ring-focus: 96 165 250; /* #60a5fa */
+
+  /* Shadow Colors */
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+
+  /* Text Colors */
+  --text-primary: 248 250 252; /* #f8fafc */
+  --text-secondary: 148 163 184; /* #94a3b8 */
+  --text-tertiary: 100 116 139; /* #64748b */
+  --text-disabled: 71 85 105; /* #475569 */
+  --text-inverse: 15 23 42; /* #0f172a */
+
+  /* Background Colors */
+  --bg-primary: 15 23 42; /* #0f172a */
+  --bg-secondary: 30 41 59; /* #1e293b */
+  --bg-tertiary: 51 65 85; /* #334155 */
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --bg-backdrop: rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   COMPONENT-SPECIFIC VARIABLES
+   ======================================== */
+
+:root {
+  /* Button Variables */
+  --button-height-sm: var(--space-8);
+  --button-height-md: var(--space-10);
+  --button-height-lg: var(--space-12);
+  --button-height-xl: var(--space-14);
+
+  /* Input Variables */
+  --input-height-sm: var(--space-8);
+  --input-height-md: var(--space-10);
+  --input-height-lg: var(--space-12);
+
+  /* Card Variables */
+  --card-padding-sm: var(--space-4);
+  --card-padding-md: var(--space-6);
+  --card-padding-lg: var(--space-8);
+
+  /* Border Variables */
+  --border-width-0: 0;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+  --border-width-8: 8px;
+
+  /* Animation Variables */
+  --animation-duration-fast: 150ms;
+  --animation-duration-normal: 300ms;
+  --animation-duration-slow: 500ms;
+
+  --animation-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --animation-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --animation-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ========================================
+   UTILITY VARIABLES
+   ======================================== */
+
+:root {
+  /* Focus Variables */
+  --focus-ring: 0 0 0 2px var(--ring);
+  --focus-ring-offset: 0 0 0 2px var(--background);
+
+  /* Selection Variables */
+  --selection-bg: var(--primary-200);
+  --selection-color: var(--primary-900);
+
+  /* Scrollbar Variables */
+  --scrollbar-width: 8px;
+  --scrollbar-track: var(--neutral-100);
+  --scrollbar-thumb: var(--neutral-300);
+  --scrollbar-thumb-hover: var(--neutral-400);
+}
+
+.dark {
+  /* Dark Theme Selection */
+  --selection-bg: var(--primary-800);
+  --selection-color: var(--primary-100);
+
+  /* Dark Theme Scrollbar */
+  --scrollbar-track: var(--neutral-800);
+  --scrollbar-thumb: var(--neutral-600);
+  --scrollbar-thumb-hover: var(--neutral-500);
+}

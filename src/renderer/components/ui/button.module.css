@@ -1,0 +1,216 @@
+/* Button component styles */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Button sizes */
+.buttonSm {
+  height: 2rem;
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-xs);
+}
+
+.buttonMd {
+  height: 2.5rem;
+  padding: 0 var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+.buttonLg {
+  height: 2.75rem;
+  padding: 0 var(--space-6);
+  font-size: var(--font-size-base);
+}
+
+.buttonXl {
+  height: 3rem;
+  padding: 0 var(--space-8);
+  font-size: var(--font-size-lg);
+}
+
+/* Button variants */
+.buttonDefault {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonDefault:hover:not(:disabled) {
+  background-color: hsl(var(--primary-hover));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.buttonDefault:active:not(:disabled) {
+  background-color: hsl(var(--primary-active));
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonDestructive {
+  background-color: hsl(var(--error));
+  color: hsl(var(--error-foreground));
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonDestructive:hover:not(:disabled) {
+  background-color: hsl(var(--error-hover));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.buttonDestructive:active:not(:disabled) {
+  background-color: hsl(var(--error-hover));
+  opacity: 0.8;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonOutline {
+  border: 1px solid hsl(var(--border));
+  background-color: transparent;
+  color: hsl(var(--foreground));
+}
+
+.buttonOutline:hover:not(:disabled) {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonOutline:active:not(:disabled) {
+  background-color: hsl(var(--accent-hover));
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.buttonSecondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background-color: hsl(var(--secondary-hover));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.buttonSecondary:active:not(:disabled) {
+  background-color: hsl(var(--secondary-active));
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.buttonGhost {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+}
+
+.buttonGhost:hover:not(:disabled) {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  transform: translateY(-1px);
+}
+
+.buttonGhost:active:not(:disabled) {
+  background-color: hsl(var(--accent-hover));
+  transform: translateY(0);
+}
+
+.buttonLink {
+  background-color: transparent;
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  padding: 0;
+  height: auto;
+}
+
+.buttonLink:hover:not(:disabled) {
+  color: hsl(var(--primary-hover));
+  text-decoration: none;
+}
+
+/* Button with icon */
+.buttonWithIcon {
+  gap: var(--space-2);
+}
+
+.buttonIconOnly {
+  width: 2.5rem;
+  padding: 0;
+}
+
+.buttonIconOnly.buttonSm {
+  width: 2rem;
+}
+
+.buttonIconOnly.buttonLg {
+  width: 2.75rem;
+}
+
+.buttonIconOnly.buttonXl {
+  width: 3rem;
+}
+
+/* Loading state */
+.buttonLoading {
+  position: relative;
+  color: transparent;
+}
+
+.buttonLoading::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Ripple effect */
+.buttonRipple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

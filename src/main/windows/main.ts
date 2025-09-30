@@ -24,7 +24,6 @@ export class MainWindow {
           : join(__dirname, "../../../preload/index.js"),
         nodeIntegration: false,
         contextIsolation: true,
-        enableRemoteModule: false,
       },
     });
 

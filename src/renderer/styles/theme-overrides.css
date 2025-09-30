@@ -1,0 +1,216 @@
+/* Theme Override Utilities */
+
+/* Light theme overrides for dark: classes */
+html:not(.dark) {
+  /* Background overrides */
+  .dark\:bg-gray-800,
+  .dark\:bg-gray-900,
+  .dark\:bg-blue-900\/20,
+  .dark\:bg-green-900,
+  .dark\:bg-yellow-900,
+  .dark\:bg-blue-900 {
+    background-color: transparent !important;
+  }
+
+  /* Text color overrides */
+  .dark\:text-gray-300,
+  .dark\:text-gray-400,
+  .dark\:text-gray-500,
+  .dark\:text-blue-100,
+  .dark\:text-blue-200,
+  .dark\:text-blue-300,
+  .dark\:text-green-200,
+  .dark\:text-yellow-200 {
+    color: inherit !important;
+  }
+
+  /* Border color overrides */
+  .dark\:border-blue-800,
+  .dark\:border-green-200,
+  .dark\:border-yellow-200,
+  .dark\:border-blue-200 {
+    border-color: inherit !important;
+  }
+
+  /* Hover state overrides */
+  .dark\:hover\:bg-gray-800:hover,
+  .dark\:hover\:bg-gray-900:hover {
+    background-color: transparent !important;
+  }
+
+  /* Specific component overrides */
+  .dark\:bg-blue-900\/20 {
+    background-color: hsl(var(--muted)) !important;
+  }
+
+  .dark\:text-blue-100 {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark\:text-blue-200 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark\:text-blue-300 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark\:border-blue-800 {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark\:border-blue-200 {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  /* Version item specific overrides */
+  .dark\:bg-blue-900\/20 {
+    background-color: hsl(var(--muted)) !important;
+  }
+
+  .dark\:border-blue-800 {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark\:text-blue-100 {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark\:text-blue-300 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* Badge specific overrides */
+  .dark\:bg-green-900 {
+    background-color: hsl(var(--success-bg)) !important;
+  }
+
+  .dark\:text-green-200 {
+    color: hsl(var(--success)) !important;
+  }
+
+  .dark\:bg-blue-900 {
+    background-color: hsl(var(--info-bg)) !important;
+  }
+
+  .dark\:text-blue-200 {
+    color: hsl(var(--info)) !important;
+  }
+
+  .dark\:bg-yellow-900 {
+    background-color: hsl(var(--warning-bg)) !important;
+  }
+
+  .dark\:text-yellow-200 {
+    color: hsl(var(--warning)) !important;
+  }
+}
+
+/* Dark theme specific overrides */
+html.dark {
+  /* Ensure dark theme classes work properly */
+  .dark\:bg-gray-800 {
+    background-color: hsl(var(--muted)) !important;
+  }
+
+  .dark\:bg-gray-900 {
+    background-color: hsl(var(--background)) !important;
+  }
+
+  .dark\:text-gray-300 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark\:text-gray-400 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark\:text-gray-500 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark\:text-blue-100 {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  .dark\:text-blue-200 {
+    color: hsl(var(--primary)) !important;
+  }
+
+  .dark\:text-blue-300 {
+    color: hsl(var(--primary)) !important;
+  }
+
+  .dark\:bg-blue-900\/20 {
+    background-color: hsl(var(--primary) / 0.2) !important;
+  }
+
+  .dark\:border-blue-800 {
+    border-color: hsl(var(--primary)) !important;
+  }
+
+  .dark\:border-blue-200 {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark\:hover\:bg-gray-800:hover {
+    background-color: hsl(var(--muted)) !important;
+  }
+
+  .dark\:hover\:bg-gray-900:hover {
+    background-color: hsl(var(--background)) !important;
+  }
+}
+
+/* Utility classes for theme-aware styling */
+.theme-text {
+  color: hsl(var(--foreground));
+}
+
+.theme-text-muted {
+  color: hsl(var(--muted-foreground));
+}
+
+.theme-bg {
+  background-color: hsl(var(--background));
+}
+
+.theme-bg-muted {
+  background-color: hsl(var(--muted));
+}
+
+.theme-border {
+  border-color: hsl(var(--border));
+}
+
+.theme-primary {
+  color: hsl(var(--primary));
+}
+
+.theme-primary-bg {
+  background-color: hsl(var(--primary));
+}
+
+.theme-success {
+  color: hsl(var(--success));
+}
+
+.theme-success-bg {
+  background-color: hsl(var(--success-bg));
+}
+
+.theme-warning {
+  color: hsl(var(--warning));
+}
+
+.theme-warning-bg {
+  background-color: hsl(var(--warning-bg));
+}
+
+.theme-error {
+  color: hsl(var(--error));
+}
+
+.theme-error-bg {
+  background-color: hsl(var(--error-bg));
+}

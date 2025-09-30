@@ -16,7 +16,7 @@ export function VersionEmpty() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 theme-text-muted">
           <p>No newer versions available. Your project is up to date!</p>
         </div>
       </CardContent>

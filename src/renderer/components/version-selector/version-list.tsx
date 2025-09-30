@@ -29,7 +29,7 @@ export function VersionList({
       ))}
 
       {hasMore && (
-        <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-2">
+        <p className="text-sm theme-text-muted text-center py-2">
           Showing first {maxItems} versions. Total: {releases.length} available
         </p>
       )}

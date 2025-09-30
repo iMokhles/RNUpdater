@@ -10,76 +10,80 @@
 /* Light Theme */
 :root {
   /* Core Colors */
-  --background: 255 255 255; /* #ffffff */
-  --foreground: 15 23 42; /* #0f172a */
-  --card: 255 255 255; /* #ffffff */
-  --card-foreground: 15 23 42; /* #0f172a */
-  --popover: 255 255 255; /* #ffffff */
-  --popover-foreground: 15 23 42; /* #0f172a */
+  --background: 0 0% 100%; /* #ffffff */
+  --foreground: 222.2 84% 4.9%; /* #0f172a */
+  --card: 0 0% 100%; /* #ffffff */
+  --card-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --popover: 0 0% 100%; /* #ffffff */
+  --popover-foreground: 222.2 84% 4.9%; /* #0f172a */
 
   /* Primary Colors */
-  --primary: 59 130 246; /* #3b82f6 */
-  --primary-foreground: 255 255 255; /* #ffffff */
-  --primary-hover: 37 99 235; /* #2563eb */
-  --primary-active: 29 78 216; /* #1d4ed8 */
+  --primary: 221.2 83.2% 53.3%; /* #3b82f6 */
+  --primary-foreground: 210 40% 98%; /* #ffffff */
+  --primary-hover: 217.2 91.2% 59.8%; /* #2563eb */
+  --primary-active: 224.3 76.3% 94.1%; /* #1d4ed8 */
 
   /* Secondary Colors */
-  --secondary: 241 245 249; /* #f1f5f9 */
-  --secondary-foreground: 15 23 42; /* #0f172a */
-  --secondary-hover: 226 232 240; /* #e2e8f0 */
-  --secondary-active: 203 213 225; /* #cbd5e1 */
+  --secondary: 210 40% 96%; /* #f1f5f9 */
+  --secondary-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --secondary-hover: 210 40% 96%; /* #e2e8f0 */
+  --secondary-active: 214.3 31.8% 91.4%; /* #cbd5e1 */
 
   /* Muted Colors */
-  --muted: 248 250 252; /* #f8fafc */
-  --muted-foreground: 100 116 139; /* #64748b */
-  --muted-hover: 241 245 249; /* #f1f5f9 */
+  --muted: 210 40% 98%; /* #f8fafc */
+  --muted-foreground: 215.4 16.3% 46.9%; /* #64748b */
+  --muted-hover: 210 40% 96%; /* #f1f5f9 */
 
   /* Accent Colors */
-  --accent: 241 245 249; /* #f1f5f9 */
-  --accent-foreground: 15 23 42; /* #0f172a */
-  --accent-hover: 226 232 240; /* #e2e8f0 */
-  --accent-active: 203 213 225; /* #cbd5e1 */
+  --accent: 210 40% 96%; /* #f1f5f9 */
+  --accent-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --accent-hover: 210 40% 96%; /* #e2e8f0 */
+  --accent-active: 214.3 31.8% 91.4%; /* #cbd5e1 */
 
   /* Status Colors */
-  --success: 34 197 94; /* #22c55e */
-  --success-foreground: 255 255 255; /* #ffffff */
-  --success-hover: 22 163 74; /* #16a34a */
-  --success-bg: 240 253 244; /* #f0fdf4 */
-  --success-border: 187 247 208; /* #bbf7d0 */
+  --success: 142.1 76.2% 36.3%; /* #22c55e */
+  --success-foreground: 210 40% 98%; /* #ffffff */
+  --success-hover: 142.1 70.6% 45.3%; /* #16a34a */
+  --success-bg: 138 76% 97%; /* #f0fdf4 */
+  --success-border: 142 76% 85%; /* #bbf7d0 */
 
-  --warning: 245 158 11; /* #f59e0b */
-  --warning-foreground: 255 255 255; /* #ffffff */
-  --warning-hover: 217 119 6; /* #d97706 */
-  --warning-bg: 255 251 235; /* #fffbeb */
-  --warning-border: 253 230 138; /* #fde68a */
+  --warning: 38 92% 50%; /* #f59e0b */
+  --warning-foreground: 210 40% 98%; /* #ffffff */
+  --warning-hover: 38 92% 50%; /* #d97706 */
+  --warning-bg: 48 96% 89%; /* #fffbeb */
+  --warning-border: 48 96% 89%; /* #fde68a */
 
-  --error: 239 68 68; /* #ef4444 */
-  --error-foreground: 255 255 255; /* #ffffff */
-  --error-hover: 220 38 38; /* #dc2626 */
-  --error-bg: 254 242 242; /* #fef2f2 */
-  --error-border: 254 202 202; /* #fecaca */
+  --error: 0 84.2% 60.2%; /* #ef4444 */
+  --error-foreground: 210 40% 98%; /* #ffffff */
+  --error-hover: 0 62.8% 30.6%; /* #dc2626 */
+  --error-bg: 0 93% 94%; /* #fef2f2 */
+  --error-border: 0 93% 94%; /* #fecaca */
 
-  --info: 6 182 212; /* #06b6d4 */
-  --info-foreground: 255 255 255; /* #ffffff */
-  --info-hover: 8 145 178; /* #0891b2 */
-  --info-bg: 236 254 255; /* #ecfeff */
-  --info-border: 165 243 252; /* #a5f3fc */
+  --info: 188.7 94.4% 42.7%; /* #06b6d4 */
+  --info-foreground: 210 40% 98%; /* #ffffff */
+  --info-hover: 188.7 94.4% 42.7%; /* #0891b2 */
+  --info-bg: 185 100% 97%; /* #ecfeff */
+  --info-border: 185 100% 97%; /* #a5f3fc */
+
+  /* Destructive Colors (for Tailwind compatibility) */
+  --destructive: 0 84.2% 60.2%; /* #ef4444 */
+  --destructive-foreground: 210 40% 98%; /* #ffffff */
 
   /* Border Colors */
-  --border: 226 232 240; /* #e2e8f0 */
-  --border-hover: 203 213 225; /* #cbd5e1 */
-  --border-focus: 59 130 246; /* #3b82f6 */
+  --border: 214.3 31.8% 91.4%; /* #e2e8f0 */
+  --border-hover: 214.3 31.8% 91.4%; /* #cbd5e1 */
+  --border-focus: 221.2 83.2% 53.3%; /* #3b82f6 */
 
   /* Input Colors */
-  --input: 226 232 240; /* #e2e8f0 */
-  --input-hover: 203 213 225; /* #cbd5e1 */
-  --input-focus: 59 130 246; /* #3b82f6 */
-  --input-disabled: 248 250 252; /* #f8fafc */
+  --input: 214.3 31.8% 91.4%; /* #e2e8f0 */
+  --input-hover: 214.3 31.8% 91.4%; /* #cbd5e1 */
+  --input-focus: 221.2 83.2% 53.3%; /* #3b82f6 */
+  --input-disabled: 210 40% 98%; /* #f8fafc */
 
   /* Ring Colors */
-  --ring: 59 130 246; /* #3b82f6 */
-  --ring-hover: 37 99 235; /* #2563eb */
-  --ring-focus: 59 130 246; /* #3b82f6 */
+  --ring: 221.2 83.2% 53.3%; /* #3b82f6 */
+  --ring-hover: 217.2 91.2% 59.8%; /* #2563eb */
+  --ring-focus: 221.2 83.2% 53.3%; /* #3b82f6 */
 
   /* Shadow Colors */
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -91,16 +95,16 @@
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Text Colors */
-  --text-primary: 15 23 42; /* #0f172a */
-  --text-secondary: 71 85 105; /* #475569 */
-  --text-tertiary: 100 116 139; /* #64748b */
-  --text-disabled: 148 163 184; /* #94a3b8 */
-  --text-inverse: 255 255 255; /* #ffffff */
+  --text-primary: 222.2 84% 4.9%; /* #0f172a */
+  --text-secondary: 215.4 16.3% 46.9%; /* #475569 */
+  --text-tertiary: 215.4 16.3% 46.9%; /* #64748b */
+  --text-disabled: 215.4 16.3% 46.9%; /* #94a3b8 */
+  --text-inverse: 210 40% 98%; /* #ffffff */
 
   /* Background Colors */
-  --bg-primary: 255 255 255; /* #ffffff */
-  --bg-secondary: 248 250 252; /* #f8fafc */
-  --bg-tertiary: 241 245 249; /* #f1f5f9 */
+  --bg-primary: 0 0% 100%; /* #ffffff */
+  --bg-secondary: 210 40% 98%; /* #f8fafc */
+  --bg-tertiary: 210 40% 96%; /* #f1f5f9 */
   --bg-overlay: rgba(0, 0, 0, 0.5);
   --bg-backdrop: rgba(0, 0, 0, 0.1);
 }
@@ -108,76 +112,80 @@
 /* Dark Theme */
 .dark {
   /* Core Colors */
-  --background: 15 23 42; /* #0f172a */
-  --foreground: 248 250 252; /* #f8fafc */
-  --card: 30 41 59; /* #1e293b */
-  --card-foreground: 248 250 252; /* #f8fafc */
-  --popover: 30 41 59; /* #1e293b */
-  --popover-foreground: 248 250 252; /* #f8fafc */
+  --background: 222.2 84% 4.9%; /* #0f172a */
+  --foreground: 210 40% 98%; /* #f8fafc */
+  --card: 217.2 32.6% 17.5%; /* #1e293b */
+  --card-foreground: 210 40% 98%; /* #f8fafc */
+  --popover: 217.2 32.6% 17.5%; /* #1e293b */
+  --popover-foreground: 210 40% 98%; /* #f8fafc */
 
   /* Primary Colors */
-  --primary: 96 165 250; /* #60a5fa */
-  --primary-foreground: 15 23 42; /* #0f172a */
-  --primary-hover: 147 197 253; /* #93c5fd */
-  --primary-active: 191 219 254; /* #bfdbfe */
+  --primary: 217.2 91.2% 59.8%; /* #60a5fa */
+  --primary-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --primary-hover: 217.2 91.2% 59.8%; /* #93c5fd */
+  --primary-active: 224.3 76.3% 94.1%; /* #bfdbfe */
 
   /* Secondary Colors */
-  --secondary: 51 65 85; /* #334155 */
-  --secondary-foreground: 248 250 252; /* #f8fafc */
-  --secondary-hover: 71 85 105; /* #475569 */
-  --secondary-active: 100 116 139; /* #64748b */
+  --secondary: 217.2 32.6% 17.5%; /* #334155 */
+  --secondary-foreground: 210 40% 98%; /* #f8fafc */
+  --secondary-hover: 217.2 32.6% 17.5%; /* #475569 */
+  --secondary-active: 215 20.2% 65.1%; /* #64748b */
 
   /* Muted Colors */
-  --muted: 30 41 59; /* #1e293b */
-  --muted-foreground: 148 163 184; /* #94a3b8 */
-  --muted-hover: 51 65 85; /* #334155 */
+  --muted: 217.2 32.6% 17.5%; /* #1e293b */
+  --muted-foreground: 215 20.2% 65.1%; /* #94a3b8 */
+  --muted-hover: 217.2 32.6% 17.5%; /* #334155 */
 
   /* Accent Colors */
-  --accent: 51 65 85; /* #334155 */
-  --accent-foreground: 248 250 252; /* #f8fafc */
-  --accent-hover: 71 85 105; /* #475569 */
-  --accent-active: 100 116 139; /* #64748b */
+  --accent: 217.2 32.6% 17.5%; /* #334155 */
+  --accent-foreground: 210 40% 98%; /* #f8fafc */
+  --accent-hover: 217.2 32.6% 17.5%; /* #475569 */
+  --accent-active: 215 20.2% 65.1%; /* #64748b */
 
   /* Status Colors */
-  --success: 74 222 128; /* #4ade80 */
-  --success-foreground: 15 23 42; /* #0f172a */
-  --success-hover: 134 239 172; /* #86efac */
-  --success-bg: 20 83 45; /* #14532d */
-  --success-border: 22 101 52; /* #166534 */
+  --success: 142.1 70.6% 45.3%; /* #4ade80 */
+  --success-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --success-hover: 142.1 70.6% 45.3%; /* #86efac */
+  --success-bg: 142 76% 20%; /* #14532d */
+  --success-border: 142 76% 30%; /* #166534 */
 
-  --warning: 251 191 36; /* #fbbf24 */
-  --warning-foreground: 15 23 42; /* #0f172a */
-  --warning-hover: 252 211 77; /* #fcd34d */
-  --warning-bg: 120 53 15; /* #78350f */
-  --warning-border: 146 64 14; /* #92400e */
+  --warning: 38 92% 50%; /* #fbbf24 */
+  --warning-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --warning-hover: 38 92% 50%; /* #fcd34d */
+  --warning-bg: 38 92% 20%; /* #78350f */
+  --warning-border: 38 92% 30%; /* #92400e */
 
-  --error: 248 113 113; /* #f87171 */
-  --error-foreground: 15 23 42; /* #0f172a */
-  --error-hover: 252 165 165; /* #fca5a5 */
-  --error-bg: 127 29 29; /* #7f1d1d */
-  --error-border: 153 27 27; /* #991b1b */
+  --error: 0 62.8% 30.6%; /* #f87171 */
+  --error-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --error-hover: 0 62.8% 30.6%; /* #fca5a5 */
+  --error-bg: 0 62.8% 20%; /* #7f1d1d */
+  --error-border: 0 62.8% 30%; /* #991b1b */
 
-  --info: 34 211 238; /* #22d3ee */
-  --info-foreground: 15 23 42; /* #0f172a */
-  --info-hover: 103 232 249; /* #67e8f9 */
-  --info-bg: 22 78 99; /* #164e63 */
-  --info-border: 21 94 117; /* #155e75 */
+  --info: 188.7 94.4% 42.7%; /* #22d3ee */
+  --info-foreground: 222.2 84% 4.9%; /* #0f172a */
+  --info-hover: 188.7 94.4% 42.7%; /* #67e8f9 */
+  --info-bg: 188.7 94.4% 20%; /* #164e63 */
+  --info-border: 188.7 94.4% 30%; /* #155e75 */
+
+  /* Destructive Colors (for Tailwind compatibility) */
+  --destructive: 0 62.8% 30.6%; /* #f87171 */
+  --destructive-foreground: 210 40% 98%; /* #ffffff */
 
   /* Border Colors */
-  --border: 71 85 105; /* #475569 */
-  --border-hover: 100 116 139; /* #64748b */
-  --border-focus: 96 165 250; /* #60a5fa */
+  --border: 217.2 32.6% 17.5%; /* #475569 */
+  --border-hover: 215 20.2% 65.1%; /* #64748b */
+  --border-focus: 217.2 91.2% 59.8%; /* #60a5fa */
 
   /* Input Colors */
-  --input: 71 85 105; /* #475569 */
-  --input-hover: 100 116 139; /* #64748b */
-  --input-focus: 96 165 250; /* #60a5fa */
-  --input-disabled: 30 41 59; /* #1e293b */
+  --input: 217.2 32.6% 17.5%; /* #475569 */
+  --input-hover: 215 20.2% 65.1%; /* #64748b */
+  --input-focus: 217.2 91.2% 59.8%; /* #60a5fa */
+  --input-disabled: 217.2 32.6% 17.5%; /* #1e293b */
 
   /* Ring Colors */
-  --ring: 96 165 250; /* #60a5fa */
-  --ring-hover: 147 197 253; /* #93c5fd */
-  --ring-focus: 96 165 250; /* #60a5fa */
+  --ring: 217.2 91.2% 59.8%; /* #60a5fa */
+  --ring-hover: 217.2 91.2% 59.8%; /* #93c5fd */
+  --ring-focus: 217.2 91.2% 59.8%; /* #60a5fa */
 
   /* Shadow Colors */
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -189,16 +197,16 @@
     0 10px 10px -5px rgba(0, 0, 0, 0.2);
 
   /* Text Colors */
-  --text-primary: 248 250 252; /* #f8fafc */
-  --text-secondary: 148 163 184; /* #94a3b8 */
-  --text-tertiary: 100 116 139; /* #64748b */
-  --text-disabled: 71 85 105; /* #475569 */
-  --text-inverse: 15 23 42; /* #0f172a */
+  --text-primary: 210 40% 98%; /* #f8fafc */
+  --text-secondary: 215 20.2% 65.1%; /* #94a3b8 */
+  --text-tertiary: 215 20.2% 65.1%; /* #64748b */
+  --text-disabled: 217.2 32.6% 17.5%; /* #475569 */
+  --text-inverse: 222.2 84% 4.9%; /* #0f172a */
 
   /* Background Colors */
-  --bg-primary: 15 23 42; /* #0f172a */
-  --bg-secondary: 30 41 59; /* #1e293b */
-  --bg-tertiary: 51 65 85; /* #334155 */
+  --bg-primary: 222.2 84% 4.9%; /* #0f172a */
+  --bg-secondary: 217.2 32.6% 17.5%; /* #1e293b */
+  --bg-tertiary: 217.2 32.6% 17.5%; /* #334155 */
   --bg-overlay: rgba(0, 0, 0, 0.7);
   --bg-backdrop: rgba(0, 0, 0, 0.3);
 }

@@ -1,6 +1,7 @@
 import { CheckCircle, AlertCircle, Code } from "lucide-react";
 import { Badge } from "../ui/badge";
 import type { RNRelease } from "shared/types";
+import { useThemeStore } from "renderer/lib/stores/theme-store";
 
 interface VersionItemProps {
   release: RNRelease;
@@ -16,30 +17,21 @@ export function VersionItem({
   const getVersionBadge = (release: RNRelease) => {
     if (release.isStable) {
       return (
-        <Badge
-          variant="default"
-          className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-        >
+        <Badge variant="default" className="theme-success-bg theme-success">
           Stable
         </Badge>
       );
     }
     if (release.isReleaseCandidate) {
       return (
-        <Badge
-          variant="secondary"
-          className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-        >
+        <Badge variant="secondary" className="theme-primary-bg theme-text">
           RC
         </Badge>
       );
     }
     if (release.isPrerelease) {
       return (
-        <Badge
-          variant="outline"
-          className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-        >
+        <Badge variant="outline" className="theme-warning-bg theme-warning">
           Pre
         </Badge>
       );
@@ -49,20 +41,18 @@ export function VersionItem({
 
   const getVersionIcon = (release: RNRelease) => {
     if (release.isStable) {
-      return <CheckCircle className="h-4 w-4 text-green-600" />;
+      return <CheckCircle className="h-4 w-4 theme-success" />;
     }
     if (release.isReleaseCandidate) {
-      return <AlertCircle className="h-4 w-4 text-blue-600" />;
+      return <AlertCircle className="h-4 w-4 theme-primary" />;
     }
-    return <Code className="h-4 w-4 text-gray-600" />;
+    return <Code className="h-4 w-4 theme-text-muted" />;
   };
 
   return (
-    <div
+    <span
       className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-colors ${
-        isSelected
-          ? "bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800"
-          : "hover:bg-gray-50 dark:hover:bg-gray-800"
+        isSelected ? "theme-bg-muted theme-border" : "hover:theme-bg-muted"
       }`}
       onClick={() => onSelect(release.version)}
     >
@@ -72,8 +62,8 @@ export function VersionItem({
         {getVersionBadge(release)}
       </div>
       <div className="flex items-center gap-2">
-        {isSelected && <CheckCircle className="h-4 w-4 text-blue-600" />}
+        {isSelected && <CheckCircle className="h-4 w-4 theme-primary" />}
       </div>
-    </div>
+    </span>
   );
 }

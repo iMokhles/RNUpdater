@@ -1,72 +1,10 @@
 @import "tailwindcss";
 @import "./styles/variables.css";
 @import "./styles/dark-theme.css";
+@import "./styles/theme-overrides.css";
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222.2 84% 4.9%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96%;
-  --accent-foreground: 222.2 84% 4.9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
   --radius: 0.5rem;
-
-  /* Custom RNUpdater variables */
-  --app-bg: 0 0% 98%;
-  --app-surface: 0 0% 100%;
-  --app-border: 214.3 31.8% 91.4%;
-  --app-text: 222.2 84% 4.9%;
-  --app-text-muted: 215.4 16.3% 46.9%;
-  --app-accent: 221.2 83.2% 53.3%;
-  --app-success: 142.1 76.2% 36.3%;
-  --app-warning: 38 92% 50%;
-  --app-error: 0 84.2% 60.2%;
-}
-
-.dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 217.2 91.2% 59.8%;
-  --primary-foreground: 222.2 84% 4.9%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 94.1%;
-
-  /* Custom RNUpdater dark variables */
-  --app-bg: 222.2 84% 4.9%;
-  --app-surface: 217.2 32.6% 17.5%;
-  --app-border: 217.2 32.6% 17.5%;
-  --app-text: 210 40% 98%;
-  --app-text-muted: 215 20.2% 65.1%;
-  --app-accent: 217.2 91.2% 59.8%;
-  --app-success: 142.1 70.6% 45.3%;
-  --app-warning: 38 92% 50%;
-  --app-error: 0 62.8% 30.6%;
 }
 
 * {
@@ -277,4 +215,85 @@ html.dark #app,
 html.dark app {
   background-color: hsl(var(--background)) !important;
   color: hsl(var(--foreground)) !important;
+}
+
+/* Override dark: classes with higher specificity for light theme */
+html:not(.dark) .dark\:bg-gray-800 {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:bg-gray-900 {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:text-gray-300 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-gray-400 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-gray-500 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-blue-100 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-blue-200 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-blue-300 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-green-200 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:text-yellow-200 {
+  color: inherit !important;
+}
+
+html:not(.dark) .dark\:bg-blue-900\/20 {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:bg-green-900 {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:bg-yellow-900 {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:bg-blue-900 {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:border-blue-800 {
+  border-color: inherit !important;
+}
+
+html:not(.dark) .dark\:border-green-200 {
+  border-color: inherit !important;
+}
+
+html:not(.dark) .dark\:border-yellow-200 {
+  border-color: inherit !important;
+}
+
+html:not(.dark) .dark\:border-blue-200 {
+  border-color: inherit !important;
+}
+
+html:not(.dark) .dark\:hover\:bg-gray-800:hover {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .dark\:hover\:bg-gray-900:hover {
+  background-color: transparent !important;
 }

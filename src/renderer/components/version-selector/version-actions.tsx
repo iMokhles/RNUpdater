@@ -17,13 +17,13 @@ export function VersionActions({
   onUpgrade,
 }: VersionActionsProps) {
   return (
-    <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+    <div className="mt-4 p-4 theme-bg-muted rounded-lg border theme-border">
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-semibold text-blue-900 dark:text-blue-100">
+          <p className="font-semibold theme-text">
             Selected: {selectedVersion}
           </p>
-          <p className="text-sm text-blue-700 dark:text-blue-300">
+          <p className="text-sm theme-text-muted">
             Ready to upgrade from {currentVersion}
           </p>
         </div>
@@ -44,7 +44,7 @@ export function VersionActions({
           </Button>
           <Button
             size="sm"
-            className="bg-blue-600 hover:bg-blue-700"
+            className="theme-primary-bg hover:opacity-90 text-white"
             onClick={onUpgrade}
           >
             Upgrade Now

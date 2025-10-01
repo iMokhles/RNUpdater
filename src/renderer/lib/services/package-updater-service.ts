@@ -1,4 +1,5 @@
 // Note: execAsync is not used in this service anymore since we're parsing diff content
+import { BackupService } from "./backup-service";
 
 export interface PackageUpdate {
   name: string;
@@ -279,19 +280,10 @@ export class PackageUpdaterService {
    * Create backup of package.json
    */
   private static async createBackup(projectPath: string): Promise<void> {
-    const packageJsonPath = `${projectPath}/package.json`;
-    const backupPath = `${projectPath}/package.json.backup.${Date.now()}`;
-
-    let content: string;
-    if (typeof window !== "undefined" && window.App) {
-      // Renderer process
-      content = await window.App.readFile(packageJsonPath);
-      await window.App.writeFile(backupPath, content);
-    } else {
-      // Main process - use Node.js fs directly
-      const { readFile, writeFile } = await import("fs/promises");
-      content = await readFile(packageJsonPath, "utf-8");
-      await writeFile(backupPath, content, "utf-8");
+    // Use BackupService to create backup
+    const backupInfo = await BackupService.createPackageJsonBackup(projectPath);
+    if (!backupInfo) {
+      console.warn("Failed to create package.json backup");
     }
   }
 
@@ -303,6 +295,27 @@ export class PackageUpdaterService {
     if (versionString.startsWith("^")) return "^";
     if (versionString.startsWith("~")) return "~";
     return "^";
+  }
+
+  /**
+   * Clean up backup after successful commit
+   */
+  static async cleanupBackupAfterCommit(projectPath: string): Promise<boolean> {
+    return await BackupService.cleanupBackupAfterCommit(projectPath);
+  }
+
+  /**
+   * Check if backup exists
+   */
+  static async hasBackup(projectPath: string): Promise<boolean> {
+    return await BackupService.hasPackageJsonBackup(projectPath);
+  }
+
+  /**
+   * Get backup info
+   */
+  static async getBackupInfo(projectPath: string) {
+    return await BackupService.getPackageJsonBackupInfo(projectPath);
   }
 
   /**

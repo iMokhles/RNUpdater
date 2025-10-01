@@ -1,4 +1,5 @@
 import type { RNProject, PackageJsonInfo, GitInfo } from "shared/types";
+import { BackupService } from "./backup-service";
 
 export class ProjectService {
   static async selectProjectFolder(): Promise<string | null> {
@@ -13,7 +14,10 @@ export class ProjectService {
 
   static async readPackageJson(projectPath: string): Promise<PackageJsonInfo> {
     try {
-      const packageJson = await window.App.readPackageJson(projectPath);
+      // Always prefer backup if it exists
+      const packageJson = await BackupService.readPackageJsonWithBackup(
+        projectPath
+      );
       return packageJson;
     } catch (error) {
       console.error("Error reading package.json:", error);

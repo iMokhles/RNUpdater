@@ -11,6 +11,8 @@ import {
 } from "../../lib/services/package-updater-service";
 import { MigrationScriptGenerator } from "../../lib/services/migration-script-generator";
 import { ComplexChangeApplier } from "../../lib/services/complex-change-applier";
+import { BackupService } from "../../lib/services/backup-service";
+import { ModalCloseButton } from "../ui/modal-close-button";
 import {
   ChevronRight,
   AlertTriangle,
@@ -62,10 +64,28 @@ export function EnhancedMajorVersionUpdater({
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [diffContent, setDiffContent] = useState<string>("");
+  const [backupInfo, setBackupInfo] = useState<any>(null);
+  const [comprehensiveBackup, setComprehensiveBackup] = useState<any>(null);
 
   useEffect(() => {
     analyzeUpdate();
   }, [projectPath, fromVersion, toVersion]);
+
+  // Handle Escape key to close modals
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (showMigrationScript) {
+          setShowMigrationScript(false);
+        }
+      }
+    };
+
+    if (showMigrationScript) {
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [showMigrationScript]);
 
   const analyzeUpdate = async () => {
     setIsAnalyzing(true);
@@ -79,6 +99,53 @@ export function EnhancedMajorVersionUpdater({
       );
 
       setUpdateResult(result);
+
+      // Check for backup information
+      try {
+        const backup = await BackupService.getPackageJsonBackupInfo(
+          projectPath
+        );
+        setBackupInfo(backup);
+      } catch (backupError) {
+        console.warn("Could not check backup info:", backupError);
+        setBackupInfo(null);
+      }
+
+      // Check for comprehensive backup information
+      try {
+        const filesToCheck = BackupService.extractFilesFromComplexChanges(
+          result.complexChanges
+        );
+        if (filesToCheck.length > 0) {
+          // Check if any of these files have backups
+          const hasBackups = await Promise.all(
+            filesToCheck.map(async (filePath) => {
+              try {
+                const fullPath = `${projectPath}/${filePath}`;
+                await window.App.readFile(`${fullPath}.backup`);
+                return { filePath, hasBackup: true };
+              } catch {
+                return { filePath, hasBackup: false };
+              }
+            })
+          );
+
+          const backedUpFiles = hasBackups.filter((f) => f.hasBackup);
+          if (backedUpFiles.length > 0) {
+            setComprehensiveBackup({
+              totalFiles: filesToCheck.length,
+              backedUpFiles: backedUpFiles.length,
+              files: backedUpFiles,
+            });
+          }
+        }
+      } catch (comprehensiveBackupError) {
+        console.warn(
+          "Could not check comprehensive backup info:",
+          comprehensiveBackupError
+        );
+        setComprehensiveBackup(null);
+      }
 
       // Get the raw diff content for complex change application
       try {
@@ -260,6 +327,43 @@ export function EnhancedMajorVersionUpdater({
     setSelectedComplexChanges(new Set(allIndices));
   };
 
+  const cleanupBackup = async () => {
+    try {
+      const success = await BackupService.cleanupBackupAfterCommit(projectPath);
+      if (success) {
+        setBackupInfo(null);
+        console.log("Backup cleaned up successfully");
+      } else {
+        console.error("Failed to cleanup backup");
+      }
+    } catch (error) {
+      console.error("Error cleaning up backup:", error);
+    }
+  };
+
+  const cleanupComprehensiveBackup = async () => {
+    try {
+      if (comprehensiveBackup) {
+        const result = await BackupService.cleanupComprehensiveBackup(
+          comprehensiveBackup
+        );
+        if (result.success) {
+          setComprehensiveBackup(null);
+          console.log(
+            `Comprehensive backup cleaned up: ${result.cleanedFiles.length} files`
+          );
+        } else {
+          console.error(
+            "Failed to cleanup comprehensive backup:",
+            result.errors
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error cleaning up comprehensive backup:", error);
+    }
+  };
+
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "critical":
@@ -356,7 +460,7 @@ export function EnhancedMajorVersionUpdater({
     <div className="space-y-6">
       {/* Tab Navigation */}
       <Card className="p-6">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 pr-12">
           <h2 className="text-2xl font-bold">Major Version Update</h2>
           <div className="flex items-center space-x-2">
             <Badge variant={getRiskColor(updateResult.estimatedRisk)}>
@@ -419,6 +523,91 @@ export function EnhancedMajorVersionUpdater({
                 <div className="text-sm text-gray-600">Migration Steps</div>
               </div>
             </div>
+
+            {/* Backup Information */}
+            {backupInfo && (
+              <div className="bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-yellow-800 dark:text-yellow-200">
+                        Package.json Backup Detected
+                      </h3>
+                      <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-1">
+                        A backup of package.json exists from a previous update.
+                        The app is reading from the backup to show the original
+                        state.
+                      </p>
+                      <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-2">
+                        Backup version: {backupInfo.version} | Created:{" "}
+                        {new Date(backupInfo.timestamp).toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={cleanupBackup}
+                    className="text-yellow-700 border-yellow-300 hover:bg-yellow-100"
+                  >
+                    Clean Up Backup
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Comprehensive Backup Information */}
+            {comprehensiveBackup && (
+              <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-blue-800 dark:text-blue-200">
+                        Comprehensive Backup Detected
+                      </h3>
+                      <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+                        Backups exist for {comprehensiveBackup.backedUpFiles}{" "}
+                        out of {comprehensiveBackup.totalFiles} files that will
+                        be modified. This includes JAR files, native code,
+                        Gradle files, and configuration files.
+                      </p>
+                      <div className="mt-2">
+                        <p className="text-xs text-blue-600 dark:text-blue-400">
+                          Backed up files:
+                        </p>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {comprehensiveBackup.files
+                            .slice(0, 5)
+                            .map((file: any, index: number) => (
+                              <span
+                                key={index}
+                                className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded"
+                              >
+                                {file.filePath.split("/").pop()}
+                              </span>
+                            ))}
+                          {comprehensiveBackup.files.length > 5 && (
+                            <span className="text-xs text-blue-600 dark:text-blue-400">
+                              +{comprehensiveBackup.files.length - 5} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={cleanupComprehensiveBackup}
+                    className="text-blue-700 border-blue-300 hover:bg-blue-100"
+                  >
+                    Clean Up All Backups
+                  </Button>
+                </div>
+              </div>
+            )}
 
             <div className="flex space-x-4">
               <Button
@@ -535,10 +724,7 @@ export function EnhancedMajorVersionUpdater({
                         <span className="font-medium text-sm">
                           {change.filePath}
                         </span>
-                        <Badge
-                          variant={getSeverityColor(change.severity)}
-                          size="sm"
-                        >
+                        <Badge variant={getSeverityColor(change.severity)}>
                           {change.severity}
                         </Badge>
                         {(() => {
@@ -549,16 +735,13 @@ export function EnhancedMajorVersionUpdater({
                           return automationStatus.automated ? (
                             <Badge
                               variant="secondary"
-                              size="sm"
                               className="flex items-center gap-1"
                             >
                               <CheckCircle className="w-3 h-3" />
                               Automated
                             </Badge>
                           ) : (
-                            <Badge variant="outline" size="sm">
-                              Manual
-                            </Badge>
+                            <Badge variant="outline">Manual</Badge>
                           );
                         })()}
                       </div>
@@ -609,9 +792,7 @@ export function EnhancedMajorVersionUpdater({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-2 mb-1">
                         <span className="font-medium">{step.description}</span>
-                        <Badge variant="outline" size="sm">
-                          {step.type}
-                        </Badge>
+                        <Badge variant="outline">{step.type}</Badge>
                       </div>
                     </div>
                   </div>
@@ -627,14 +808,27 @@ export function EnhancedMajorVersionUpdater({
         )}
       </Card>
 
-      {/* Migration Script */}
+      {/* Migration Script Modal */}
       {showMigrationScript && migrationScript && (
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Migration Script</h3>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-            <pre className="text-sm whitespace-pre-wrap">{migrationScript}</pre>
+        <div className="fixed inset-0 bg-background backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="w-full max-w-4xl max-h-[80vh] overflow-y-auto">
+            <div className="bg-background rounded-lg shadow-2xl border relative">
+              {/* Close Button */}
+              <ModalCloseButton
+                onClick={() => setShowMigrationScript(false)}
+                ariaLabel="Close migration script"
+              />
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-4">Migration Script</h3>
+                <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                  <pre className="text-sm whitespace-pre-wrap">
+                    {migrationScript}
+                  </pre>
+                </div>
+              </div>
+            </div>
           </div>
-        </Card>
+        </div>
       )}
     </div>
   );

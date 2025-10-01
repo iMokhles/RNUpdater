@@ -8,6 +8,7 @@ import {
 } from "./binary-file-updater";
 import { GradleUpdater, type GradleUpdateResult } from "./gradle-updater";
 import { DiffService } from "./diff-service";
+import { BackupService } from "./backup-service";
 
 export interface ComplexChange {
   type: string;
@@ -48,6 +49,25 @@ export class ComplexChangeApplier {
     console.log(
       `Applying ${selectedChanges.length} selected complex changes...`
     );
+
+    // Create comprehensive backup before applying changes
+    const filesToBackup =
+      BackupService.extractFilesFromComplexChanges(selectedChanges);
+    const comprehensiveBackup = await BackupService.createComprehensiveBackup(
+      projectPath,
+      filesToBackup,
+      targetVersion || "unknown"
+    );
+
+    if (!comprehensiveBackup) {
+      console.warn(
+        "Failed to create comprehensive backup, proceeding without backup"
+      );
+    } else {
+      console.log(
+        `Created comprehensive backup with ${comprehensiveBackup.totalFiles} files`
+      );
+    }
 
     for (const change of selectedChanges) {
       try {

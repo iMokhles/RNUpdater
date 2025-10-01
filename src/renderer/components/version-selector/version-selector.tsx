@@ -1,5 +1,5 @@
 import { Download, List, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -16,6 +16,7 @@ import { VersionError } from "./version-error";
 import { DiffViewer } from "../diff-viewer";
 import { PackageUpdateSelector } from "../package-updater/package-update-selector";
 import { EnhancedMajorVersionUpdater } from "../major-version-updater";
+import { ModalCloseButton } from "../ui/modal-close-button";
 import { useVersionSelectorViewModel } from "./version-selector.viewmodel";
 import { useAppStore } from "../../lib/stores/app-store";
 import type { RNRelease } from "shared/types";
@@ -137,6 +138,22 @@ export function VersionSelector({
     }
   };
 
+  // Handle Escape key to close modals
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (showMajorVersionUpdater) {
+          setShowMajorVersionUpdater(false);
+        }
+      }
+    };
+
+    if (showMajorVersionUpdater) {
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [showMajorVersionUpdater]);
+
   // Show empty state if no releases
   if (releases.length === 0) {
     return <VersionEmpty />;
@@ -255,7 +272,12 @@ export function VersionSelector({
           majorVersionUpdate && (
             <div className="fixed inset-0 bg-background backdrop-blur-sm flex items-center justify-center z-50 p-4">
               <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto">
-                <div className="bg-background rounded-lg shadow-2xl border">
+                <div className="bg-background rounded-lg shadow-2xl border relative">
+                  {/* Close Button */}
+                  <ModalCloseButton
+                    onClick={() => setShowMajorVersionUpdater(false)}
+                    ariaLabel="Close major version updater"
+                  />
                   <EnhancedMajorVersionUpdater
                     projectPath={currentProject.path}
                     fromVersion={currentVersion}

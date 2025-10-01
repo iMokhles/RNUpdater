@@ -499,28 +499,36 @@ export function EnhancedMajorVersionUpdater({
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="text-center p-4 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-2xl font-bold text-blue-600 dark:text-white">
                   {updateResult.packageUpdates.length}
                 </div>
-                <div className="text-sm text-gray-600">Package Updates</div>
+                <div className="text-sm text-gray-600 dark:text-white">
+                  Package Updates
+                </div>
               </div>
               <div className="text-center p-4 bg-orange-50 dark:bg-orange-950 rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">
+                <div className="text-2xl font-bold text-orange-600 dark:text-white">
                   {updateResult.complexChanges.length}
                 </div>
-                <div className="text-sm text-gray-600">Complex Changes</div>
+                <div className="text-sm text-gray-600 dark:text-white">
+                  Complex Changes
+                </div>
               </div>
               <div className="text-center p-4 bg-red-50 dark:bg-red-950 rounded-lg">
-                <div className="text-2xl font-bold text-red-600">
+                <div className="text-2xl font-bold text-red-600 dark:text-white">
                   {updateResult.breakingChangesCount}
                 </div>
-                <div className="text-sm text-gray-600">Breaking Changes</div>
+                <div className="text-sm text-gray-600 dark:text-white">
+                  Breaking Changes
+                </div>
               </div>
               <div className="text-center p-4 bg-green-50 dark:bg-green-950 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-bold text-green-600 dark:text-white">
                   {updateResult.migrationSteps.length}
                 </div>
-                <div className="text-sm text-gray-600">Migration Steps</div>
+                <div className="text-sm text-gray-600 dark:text-white">
+                  Migration Steps
+                </div>
               </div>
             </div>
 
@@ -529,17 +537,17 @@ export function EnhancedMajorVersionUpdater({
               <div className="bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-3">
-                    <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
+                    <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-white mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-yellow-800 dark:text-yellow-200">
+                      <h3 className="font-semibold text-yellow-800 dark:text-white">
                         Package.json Backup Detected
                       </h3>
-                      <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-1">
+                      <p className="text-sm text-yellow-700 dark:text-white mt-1">
                         A backup of package.json exists from a previous update.
                         The app is reading from the backup to show the original
                         state.
                       </p>
-                      <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-2">
+                      <p className="text-xs text-yellow-600 dark:text-white mt-2">
                         Backup version: {backupInfo.version} | Created:{" "}
                         {new Date(backupInfo.timestamp).toLocaleString()}
                       </p>
@@ -549,7 +557,7 @@ export function EnhancedMajorVersionUpdater({
                     variant="outline"
                     size="sm"
                     onClick={cleanupBackup}
-                    className="text-yellow-700 border-yellow-300 hover:bg-yellow-100"
+                    className="text-yellow-700 dark:text-white border-yellow-300 dark:border-white hover:bg-yellow-100 dark:hover:bg-yellow-800"
                   >
                     Clean Up Backup
                   </Button>
@@ -562,19 +570,19 @@ export function EnhancedMajorVersionUpdater({
               <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <CheckCircle className="h-5 w-5 text-blue-600 dark:text-white mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-blue-800 dark:text-blue-200">
+                      <h3 className="font-semibold text-blue-800 dark:text-white">
                         Comprehensive Backup Detected
                       </h3>
-                      <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+                      <p className="text-sm text-blue-700 dark:text-white mt-1">
                         Backups exist for {comprehensiveBackup.backedUpFiles}{" "}
                         out of {comprehensiveBackup.totalFiles} files that will
                         be modified. This includes JAR files, native code,
                         Gradle files, and configuration files.
                       </p>
                       <div className="mt-2">
-                        <p className="text-xs text-blue-600 dark:text-blue-400">
+                        <p className="text-xs text-blue-600 dark:text-white">
                           Backed up files:
                         </p>
                         <div className="flex flex-wrap gap-1 mt-1">
@@ -583,13 +591,13 @@ export function EnhancedMajorVersionUpdater({
                             .map((file: any, index: number) => (
                               <span
                                 key={index}
-                                className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded"
+                                className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-white px-2 py-1 rounded"
                               >
                                 {file.filePath.split("/").pop()}
                               </span>
                             ))}
                           {comprehensiveBackup.files.length > 5 && (
-                            <span className="text-xs text-blue-600 dark:text-blue-400">
+                            <span className="text-xs text-blue-600 dark:text-white">
                               +{comprehensiveBackup.files.length - 5} more
                             </span>
                           )}
@@ -601,7 +609,7 @@ export function EnhancedMajorVersionUpdater({
                     variant="outline"
                     size="sm"
                     onClick={cleanupComprehensiveBackup}
-                    className="text-blue-700 border-blue-300 hover:bg-blue-100"
+                    className="text-blue-700 dark:text-white border-blue-300 dark:border-white hover:bg-blue-100 dark:hover:bg-blue-800"
                   >
                     Clean Up All Backups
                   </Button>

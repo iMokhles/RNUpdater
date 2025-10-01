@@ -146,10 +146,7 @@ export class DiffService {
   /**
    * Generate download URL for binary files
    */
-  private static generateDownloadUrl(
-    filePath: string,
-    toVersion: string
-  ): string {
+  static generateDownloadUrl(filePath: string, toVersion: string): string {
     return `${this.RELEASE_BASE_URL}/${toVersion}/${filePath}`;
   }
 

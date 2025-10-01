@@ -15,6 +15,7 @@ import { VersionEmpty } from "./version-empty";
 import { VersionError } from "./version-error";
 import { DiffViewer } from "../diff-viewer";
 import { PackageUpdateSelector } from "../package-updater/package-update-selector";
+import { EnhancedMajorVersionUpdater } from "../major-version-updater";
 import { useVersionSelectorViewModel } from "./version-selector.viewmodel";
 import { useAppStore } from "../../lib/stores/app-store";
 import type { RNRelease } from "shared/types";
@@ -36,7 +37,15 @@ export function VersionSelector({
 }: VersionSelectorProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("pagination");
   const [showPackageUpdater, setShowPackageUpdater] = useState(false);
-  const { currentProject } = useAppStore();
+  const {
+    currentProject,
+    showMajorVersionUpdater,
+    setShowMajorVersionUpdater,
+    majorVersionUpdate,
+    setMajorVersionUpdate,
+    isMajorVersionAnalyzing,
+    setMajorVersionAnalyzing,
+  } = useAppStore();
   const viewModel = useVersionSelectorViewModel(
     currentVersion,
     onVersionSelect
@@ -84,6 +93,48 @@ export function VersionSelector({
 
   const handleCancelPackageUpdate = () => {
     setShowPackageUpdater(false);
+  };
+
+  const handleMajorVersionUpdate = async () => {
+    if (!currentProject?.path || !viewModel.selectedVersion) return;
+
+    setMajorVersionAnalyzing(true);
+    try {
+      const { PackageUpdaterService } = await import(
+        "../../lib/services/package-updater-service"
+      );
+
+      const result = await PackageUpdaterService.analyzeMajorVersionUpdate(
+        currentProject.path,
+        currentVersion,
+        viewModel.selectedVersion
+      );
+
+      setMajorVersionUpdate(result);
+      setShowMajorVersionUpdater(true);
+    } catch (error) {
+      console.error("Error analyzing major version update:", error);
+    } finally {
+      setMajorVersionAnalyzing(false);
+    }
+  };
+
+  const handleMajorVersionUpdateComplete = (result: {
+    success: boolean;
+    appliedSteps: string[];
+    errors: string[];
+  }) => {
+    if (result.success) {
+      console.log(
+        "Major version update completed successfully:",
+        result.appliedSteps
+      );
+      setShowMajorVersionUpdater(false);
+      setMajorVersionUpdate(null);
+      // You might want to refresh the project analysis here
+    } else {
+      console.error("Major version update failed:", result.errors);
+    }
   };
 
   // Show empty state if no releases
@@ -166,6 +217,7 @@ export function VersionSelector({
             onShowDiff={viewModel.showVersionDiff}
             onUpgrade={handleUpgrade}
             onPackageUpdate={handlePackageUpdate}
+            onMajorVersionUpdate={handleMajorVersionUpdate}
           />
         )}
 
@@ -195,6 +247,25 @@ export function VersionSelector({
             </div>
           </div>
         )}
+
+        {/* Major Version Updater Modal */}
+        {showMajorVersionUpdater &&
+          currentProject &&
+          viewModel.selectedVersion &&
+          majorVersionUpdate && (
+            <div className="fixed inset-0 bg-background backdrop-blur-sm flex items-center justify-center z-50 p-4">
+              <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto">
+                <div className="bg-background rounded-lg shadow-2xl border">
+                  <EnhancedMajorVersionUpdater
+                    projectPath={currentProject.path}
+                    fromVersion={currentVersion}
+                    toVersion={viewModel.selectedVersion}
+                    onUpdateComplete={handleMajorVersionUpdateComplete}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
       </CardContent>
     </Card>
   );

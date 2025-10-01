@@ -8,6 +8,8 @@ import { ProjectInfo } from "../components/project-info";
 import { VersionSelector } from "../components/version-selector";
 import { ThemeSwitcher } from "../components/theme-switcher";
 import { DownloadProgressComponent } from "../components/download-progress";
+import { Link } from "react-router-dom";
+import { Settings, ExternalLink } from "lucide-react";
 
 export function MainScreen() {
   const {
@@ -35,8 +37,10 @@ export function MainScreen() {
 
   const handleUpgrade = (version: string) => {
     console.log("Upgrading to version:", version);
-    // TODO: Implement upgrade logic
-    alert(`Upgrade to version ${version} - Feature coming soon!`);
+    // For now, show a message that the upgrade will be handled by the version selector
+    console.log(
+      `Upgrade to version ${version} will be handled by the version selector`
+    );
   };
 
   useEffect(() => {

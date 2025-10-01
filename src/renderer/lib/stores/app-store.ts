@@ -9,6 +9,7 @@ import type {
   ProjectAnalysis,
 } from "shared/types";
 import type { ReactNativeDiff } from "../services/diff-service";
+import type { MajorVersionUpdateResult } from "../services/package-updater-service";
 
 interface AppStore extends AppState {
   projects: RNProject[];
@@ -18,6 +19,11 @@ interface AppStore extends AppState {
   projectAnalysis: ProjectAnalysis | null;
   selectedDiff: ReactNativeDiff | null;
   isDiffLoading: boolean;
+
+  // Major Version Update state
+  majorVersionUpdate: MajorVersionUpdateResult | null;
+  isMajorVersionAnalyzing: boolean;
+  showMajorVersionUpdater: boolean;
 
   // Actions
   setLoading: (loading: boolean) => void;
@@ -33,6 +39,11 @@ interface AppStore extends AppState {
   setSelectedDiff: (diff: ReactNativeDiff | null) => void;
   setDiffLoading: (loading: boolean) => void;
   clearError: () => void;
+
+  // Major Version Update actions
+  setMajorVersionUpdate: (update: MajorVersionUpdateResult | null) => void;
+  setMajorVersionAnalyzing: (analyzing: boolean) => void;
+  setShowMajorVersionUpdater: (show: boolean) => void;
 }
 
 export const useAppStore = create<AppStore>()(
@@ -50,6 +61,11 @@ export const useAppStore = create<AppStore>()(
       projectAnalysis: null,
       selectedDiff: null,
       isDiffLoading: false,
+
+      // Major Version Update state
+      majorVersionUpdate: null,
+      isMajorVersionAnalyzing: false,
+      showMajorVersionUpdater: false,
 
       // Actions
       setLoading: (loading: boolean) => set({ isLoading: loading }),
@@ -91,6 +107,16 @@ export const useAppStore = create<AppStore>()(
       setDiffLoading: (loading: boolean) => set({ isDiffLoading: loading }),
 
       clearError: () => set({ error: null }),
+
+      // Major Version Update actions
+      setMajorVersionUpdate: (update: MajorVersionUpdateResult | null) =>
+        set({ majorVersionUpdate: update }),
+
+      setMajorVersionAnalyzing: (analyzing: boolean) =>
+        set({ isMajorVersionAnalyzing: analyzing }),
+
+      setShowMajorVersionUpdater: (show: boolean) =>
+        set({ showMajorVersionUpdater: show }),
     }),
     {
       name: "app-store",

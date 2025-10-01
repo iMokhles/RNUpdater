@@ -14,6 +14,25 @@ export interface PackageUpdateResult {
   error?: string;
 }
 
+export interface MajorVersionUpdateResult {
+  success: boolean;
+  packageUpdates: PackageUpdate[];
+  complexChanges: Array<{
+    type: string;
+    filePath: string;
+    description: string;
+    severity: string;
+  }>;
+  migrationSteps: Array<{
+    description: string;
+    type: string;
+    order: number;
+  }>;
+  estimatedRisk: string;
+  requiresManualReview: boolean;
+  breakingChangesCount: number;
+}
+
 export class PackageUpdaterService {
   /**
    * Analyze package.json and compare with target React Native version using diff
@@ -191,6 +210,10 @@ export class PackageUpdaterService {
       return packageChanges;
     }
 
+    console.log("Parsing diff content for package changes...");
+    console.log("Diff content length:", diffContent.length);
+    console.log("First 500 characters:", diffContent.substring(0, 500));
+
     // Split diff into lines
     const lines = diffContent.split("\n");
 
@@ -212,15 +235,23 @@ export class PackageUpdaterService {
         const [, packageName, version] = addMatch;
         const cleanVersion = version.replace(/[\^~]/, "");
 
+        console.log(`Found package change: ${packageName} -> ${cleanVersion}`);
+
         // Check if this is a React Native ecosystem package
         if (this.isReactNativeEcosystemPackage(packageName)) {
+          console.log(`Adding React Native ecosystem package: ${packageName}`);
           packageChanges.push({
             packageName,
             targetVersion: cleanVersion,
           });
+        } else {
+          console.log(`Skipping non-RN ecosystem package: ${packageName}`);
         }
       }
     }
+
+    console.log(`Total package changes found: ${packageChanges.length}`);
+    console.log("Package changes:", packageChanges);
 
     return packageChanges;
   }
@@ -272,5 +303,93 @@ export class PackageUpdaterService {
     if (versionString.startsWith("^")) return "^";
     if (versionString.startsWith("~")) return "~";
     return "^";
+  }
+
+  /**
+   * Analyze major version update with complex change detection
+   */
+  static async analyzeMajorVersionUpdate(
+    projectPath: string,
+    fromVersion: string,
+    toVersion: string,
+    diffContent?: string
+  ): Promise<MajorVersionUpdateResult> {
+    try {
+      // Import the major version updater
+      const { MajorVersionUpdater } = await import("./major-version-updater");
+
+      // Analyze the major version update
+      const updatePlan = await MajorVersionUpdater.analyzeMajorVersionUpdate(
+        projectPath,
+        fromVersion,
+        toVersion
+      );
+
+      return {
+        success: true,
+        packageUpdates: updatePlan.packageUpdates,
+        complexChanges: updatePlan.complexChanges.map((change) => ({
+          type: change.type,
+          filePath: change.filePath,
+          description: change.description,
+          severity: change.severity,
+        })),
+        migrationSteps: updatePlan.migrationSteps.map((step) => ({
+          description: step.description,
+          type: step.type,
+          order: step.order,
+        })),
+        estimatedRisk: updatePlan.estimatedRisk,
+        requiresManualReview: updatePlan.requiresManualReview,
+        breakingChangesCount: updatePlan.breakingChangesCount,
+      };
+    } catch (error) {
+      console.error("Error analyzing major version update:", error);
+      return {
+        success: false,
+        packageUpdates: [],
+        complexChanges: [],
+        migrationSteps: [],
+        estimatedRisk: "high",
+        requiresManualReview: true,
+        breakingChangesCount: 0,
+      };
+    }
+  }
+
+  /**
+   * Apply major version update with migration support
+   */
+  static async applyMajorVersionUpdate(
+    projectPath: string,
+    fromVersion: string,
+    toVersion: string
+  ): Promise<{ success: boolean; appliedSteps: string[]; errors: string[] }> {
+    try {
+      // Import the major version updater
+      const { MajorVersionUpdater } = await import("./major-version-updater");
+
+      // Analyze the update plan
+      const updatePlan = await MajorVersionUpdater.analyzeMajorVersionUpdate(
+        projectPath,
+        fromVersion,
+        toVersion
+      );
+
+      // Apply the major version update
+      const result = await MajorVersionUpdater.applyMajorVersionUpdate(
+        projectPath,
+        updatePlan
+      );
+
+      return result;
+    } catch (error) {
+      console.error("Error applying major version update:", error);
+      return {
+        success: false,
+        appliedSteps: [],
+        errors: [error instanceof Error ? error.message : "Unknown error"],
+      };
+    }
   }
 }

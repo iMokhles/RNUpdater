@@ -10,6 +10,9 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v1.0.1')
     runs-on: macos-latest
+    strategy:
+      matrix:
+        arch: [x64, arm64]
 
     steps:
       - name: Checkout
@@ -23,12 +26,9 @@ jobs:
           cache: "pnpm"
       - run: pnpm install
 
-      - name: Build and Release for macOS
-        run: |
-          # Build for x64 (Intel Macs)
-          pnpm electron-builder --mac --x64 --publish always
-
-      - name: Build and Release for macOS
-        run: |
-          # Build for arm64 (Apple Silicon Macs)
-          pnpm electron-builder --mac --arm64 --publish always
+      - name: Release Electron app for macOS (${{ matrix.arch }})
+        uses: daltonmenezes/action-electron-builder@v1.0.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          package_manager: "pnpm"
+          args: "--${{ matrix.arch }}"
